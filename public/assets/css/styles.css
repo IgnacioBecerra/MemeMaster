@@ -1,147 +1,259 @@
 body {
-  margin: 0;
-  font-family: Helvetica, sans-serif;
-  background-color: #f4f4f4;
+    margin: 0;
+    font-family: Helvetica, sans-serif;
 }
 
 a {
-  color: #000;
+    color: #000;
 }
 
 /* header */
 
 .header {
-  background-color: #fff;
-  box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
-  position: fixed;
-  width: 100%;
+    background-color: #fff;
+    box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 .header ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow: hidden;
-  background-color: #fff;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background-color: #fff;
 }
 
 .header li a {
-  display: block;
+    display: block;
     font-size: 1.5em;
-  padding: 20px 20px;
-  //border-right: 1px solid #f4f4f4;
-  text-decoration: none;
+    padding: 20px 20px;
+    //border-right: 1px solid #f4f4f4;
+    text-decoration: none;
 }
 
 .header li a:hover,
 .header .menu-btn:hover {
-  color: #E19C9C;
+    color: #E19C9C;
 }
 
 .header .active {
-  color: #E19C9C;
+    color: #E19C9C;
 }
 
 
 .header .logo {
-  display: block;
-  float: left;
-  font-size: 2em;
-  padding: 10px 20px;
-      color: #E19C9C;
+    display: block;
+    float: left;
+    font-size: 2em;
+    padding: 10px 20px;
+    color: #E19C9C;
     font-weight: bold;
-  text-decoration: none;
+    text-decoration: none;
 }
 
 /* menu */
 
 .header .menu {
-  clear: both;
-  max-height: 0;
-  transition: max-height .2s ease-out;
+    clear: both;
+    max-height: 0;
+    transition: max-height .2s ease-out;
 }
 
 /* menu icon */
 
 .header .menu-icon {
-  cursor: pointer;
-  display: inline-block;
-  float: right;
-  padding: 28px 20px;
-  position: relative;
-  user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    padding: 28px 20px;
+    position: relative;
+    user-select: none;
 }
 
 .header .menu-icon .navicon {
-  background: #333;
-  display: block;
-  height: 2px;
-  position: relative;
-  transition: background .2s ease-out;
-  width: 18px;
+    background: #333;
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: background .2s ease-out;
+    width: 18px;
 }
 
 .header .menu-icon .navicon:before,
 .header .menu-icon .navicon:after {
-  background: #333;
-  content: '';
-  display: block;
-  height: 100%;
-  position: absolute;
-  transition: all .2s ease-out;
-  width: 100%;
+    background: #333;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all .2s ease-out;
+    width: 100%;
 }
 
 .header .menu-icon .navicon:before {
-  top: 5px;
+    top: 5px;
 }
 
 .header .menu-icon .navicon:after {
-  top: -5px;
+    top: -5px;
 }
 
 /* menu btn */
 
 .header .menu-btn {
-  display: none;
+    display: none;
 }
 
 .header .menu-btn:checked ~ .menu {
-  max-height: 240px;
+    max-height: 240px;
 }
 
 .header .menu-btn:checked ~ .menu-icon .navicon {
-  background: transparent;
+    background: transparent;
 }
 
 .header .menu-btn:checked ~ .menu-icon .navicon:before {
-  transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }
 
 .header .menu-btn:checked ~ .menu-icon .navicon:after {
-  transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
 .header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
-  top: 0;
+    top: 0;
 }
 
 /* 48em = 768px */
 
 @media (min-width: 48em) {
-  .header li {
-    float: left;
-  }
-  .header li a {
-    padding: 20px 30px;
-  }
-  .header .menu {
-    clear: none;
-    float: right;
-    max-height: none;
-  }
-  .header .menu-icon {
-    display: none;
-  }
+    .header li {
+        float: left;
+    }
+    .header li a {
+        padding: 20px 30px;
+    }
+    .header .menu {
+        clear: none;
+        float: right;
+        max-height: none;
+    }
+    .header .menu-icon {
+        display: none;
+    }
+}
+
+/* LOGIN FORM */
+
+#loginform {
+    border: 1px solid #555555;
+    margin: 120px 25%;
+    background-color: white;
+}
+
+.container h1 {
+    font-family: "arial";
+    font-size:36px;
+    font-weight: 100;
+    color: #555555;
+}
+
+.container label {
+    font-size: 1.5em;
+    font-weight: 200;
+    color: #555555; 
+}
+
+.container input {
+    color: #555555; 
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 0.4em 0.5em 0.2em;
+    margin: 2% auto 4%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1.2em;
+}
+
+button {
+    font-size: 1.2em;
+    padding: 10px 10px;
+    margin: 8px 2px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.loginbtn {
+    width: 7em;
+    background-color: #E19C9C;
+    border: 2px solid #E19C9C;
+    border-radius: 4px;
+    color: white;
+}
+
+.cancelbtn {
+    width: 7em;
+    background-color: white;
+    border: 2px solid #BC0000;
+    border-radius: 4px;
+    color: #BC0000;
+}
+
+.signUpbtn {
+    width: 7em;
+    background-color: white;
+    border: 2px solid #E19C9C;
+    border-radius: 4px;
+    color: #E19C9C;
+}
+
+.container {
+    padding: 8px 16px 24px;
+    margin: auto 10%;
+}
+
+span.register {
+    font-size: 1.2em;
+    color: #555555;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+
+@media screen and (max-width: 68em) {
+    #loginform {
+        margin: 120px 20%;
+    }
+}
+
+@media screen and (max-width: 48em) {
+    #loginform {
+        margin: 120px 15%;
+    }
+}
+
+@media screen and (max-width: 36em) {
+    .cancelbtn {
+        width: 100%;
+    }
+    .loginbtn {
+        width: 100%;
+    }
+    .signUpbtn {
+        width: 100%;
+    }
+
+    #loginform {
+        margin: 120px 5%;
+    }
 }

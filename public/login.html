@@ -6,17 +6,41 @@
         <title>Log In</title>
         <base href = "./"> 
         <link rel="stylesheet" href="./assets/css/styles.css">
-        <link>
     </head>
+
+    <header class="header">
+        <a href="./index.html" class="logo">Meme Generator</a>
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+        <ul class="menu">
+            <li><a class="active" href="./login.html">Log In</a></li>
+            <li><a href="./signup.html">Sign Up</a></li>
+        </ul>
+    </header>
+
     <body>
-        <header class="header">
-            <a href="./index.html" class="logo">Meme Generator</a>
-            <input class="menu-btn" type="checkbox" id="menu-btn" />
-            <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-            <ul class="menu">
-                <li><a class="active" href="./login.html">Log In</a></li>
-                <li><a href="./signup.html">Sign Up</a></li>
-            </ul>
-        </header>
+
+        <form id="loginform" ction="">
+            <div class="container">
+                <h1>Log In</h1>
+                <label for="uname">Username</label>
+                <br>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+                <br>
+                <label for="psw">Password</label>
+                <br>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+                <br>
+                <button type="button" class="cancelbtn">Cancel</button>
+                <button class="loginbtn" type="submit">Login</button>
+            </div>
+
+            <div class="container">
+
+                <span class="register">Don't have an acccount yet?</span>
+                <br>
+                <button class="signUpbtn" type="submit">Sign Up</button>
+            </div>
+        </form>
     </body>
 </html>
