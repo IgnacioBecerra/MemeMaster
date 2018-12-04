@@ -4,21 +4,133 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Canvas Test</title>
+		
 
 		<base href="./">
+		<script src="./assets/js/fabric.min.js"></script>
+		<style>
+			canvas {
+			margin-top: 5px;
+			border: 1px solid #ccc
+			}
+		</style>
 		
 	</head>
 
 	<body>
+		<canvas id="canvas" width="500" height="500"></canvas>
+		<br>
+		<input id='file' type="file"><br>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+		<input class="input" data-text="text1" value="text1" id="cardalltexthex1" />
+		<input class="input" data-text="text2" value="text2" id="cardalltexthex2" />
+		<button id='reset' onclick="canvasClear()">Reset Canvas</button>
+		
 		<script type="text/javascript">
-			var canvas = new fabric.Canvas('c');
-			var rect = new fabric.Rect();
 
-			canvas.add(rect); // add object
+			function canvasClear() {
+				canvas.clear();
+				document.getElementById("file").value = null;
+			}
 
-			canvas.item(0); // reference fabric.Rect added earlier (first object)
-			canvas.getObjects(); // get all objects on canvas (rect will be first and only)
+			var canvas = new fabric.Canvas('canvas');
+			canvas.selection = false;
+			canvas.forEachObject(function(o) {
+			  o.selectable = false;
+			});
 
-			canvas.remove(rect); // remove previously-added fabric.Rect
+			var text1 = new fabric.Textbox("Text", {
+			  width: 500,
+			  fixedWidth: 500,
+			  id: "cardalltexthex1",
+			  fontFamily: "Impact",
+			  fontSize: 40,
+			  left: 0,
+			  top: 10,
+			  text: "text1",
+			  fill: 'white',
+			  stroke: 'black',
+			  strokeWidth : 2,
+			  textAlign: 'center',
+			  editable: false
+			});
+
+			text2 = new fabric.Textbox("Text", {
+			  width: 500,
+			  fixedWidth: 500,
+			  id: "cardalltexthex2",
+			  fontFamily: "Impact",
+			  fontSize: 40,
+			  left: 0,
+			  top: 425,
+			  text: "text2",
+			  fill: 'white',
+			  stroke: 'black',
+			  strokeWidth: 2,
+			  textAlign: 'center',
+			  editable: false
+			});
+
+
+
+			document.getElementById('file').addEventListener("change", function (e) {
+			  canvas.clear();
+			  var file = e.target.files[0];
+			  var reader = new FileReader();
+			  
+			  reader.onload = function (f) {
+			    var data = f.target.result;                    
+			    fabric.Image.fromURL(data, function (img) {
+			      var oImg = img.set({left: 0, top: 0, angle: 0});
+			      oImg.scaleToHeight(500);
+			      oImg.scaleToWidth(500);
+			      oImg.lockMovementX = true;
+			      oImg.lockMovementY = true;
+			      oImg.lockScalingX = true;
+			      oImg.lockScalingY = true;
+			      oImg.lockRotation = true;
+			      oImg.selectable = false;
+			      canvas.hoverCursor = 'defaultCursor'
+			      canvas.add(oImg).sendToBack(oImg).renderAll();
+			    });
+			  };
+			  reader.readAsDataURL(file);
+			  canvas.add(text1);
+			  canvas.add(text2);
+			  canvas.renderAll();
+
+			});
+
+			$('.input').on('keyup', function() {
+			  id = $(this).attr('id');
+			  val = $(this).attr('data-text');
+			  newtext = $(this).val();
+			  input = $(this);
+
+			  var objs = canvas.getObjects();
+			  objs.forEach(function(obj) {
+			    if (obj && obj.text == val) {
+			      obj.text = newtext.toUpperCase();
+			      input.attr("data-text", newtext.toUpperCase());
+			      canvas.renderAll();
+			    }
+			  });
+			});
+
+			var link = document.createElement('a');
+			link.id = 'link';
+			link.addEventListener('click', function(ev) {
+			    link.href = canvas.toDataURL();
+			    link.download = "mypainting.png";
+			}, false);
+			document.body.appendChild(link);
+
+			var but = document.createElement('button');
+			but.innerHTML = "Download Image";
+			document.getElementById('link').appendChild(but)
+
 		</script>
+
+		
 	</body>
