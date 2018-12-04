@@ -148,11 +148,18 @@ a {
 
 /* LOGIN FORM */
 
-#loginform {
-    border: 1px solid #555555;
+.user-form {
+    border: 2px solid #DCDCDC;
     margin: 120px 25%;
     background-color: white;
 }
+
+/*
+#loginform {
+border: 2px solid #DCDCDC;
+margin: 120px 25%;
+background-color: white;
+} */
 
 .container h1 {
     font-family: "arial";
@@ -211,10 +218,10 @@ button:hover {
 
 .signUpbtn {
     width: 7em;
-    background-color: white;
+    background-color: #E19C9C;
     border: 2px solid #E19C9C;
     border-radius: 4px;
-    color: #E19C9C;
+    color: white;
 }
 
 .container {
