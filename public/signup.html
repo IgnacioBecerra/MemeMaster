@@ -18,7 +18,7 @@
         </ul>
     </header>
     <body>
-          <form class="user-form" id="singupform" action="">
+        <form class="user-form" id="singupform" action="">
             <div class="container">
                 <h1>Sign Up</h1>
                 <label for="uname">Username</label>
@@ -27,14 +27,32 @@
                 <br>
                 <label for="psw">Password</label>
                 <br>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input id="password" type="password" placeholder="Enter Password" name="psw" required>
                 <label for="psw">Confirm Password</label>
                 <br>
-                <input type="password" placeholder="Confirm Password" name="cfmpsw" required>
+                <input id="confirm_password" type="password" placeholder="Confirm Password" name="cfmpsw" required>
                 <br>
                 <a href="./index.html"><button type="button" class="cancelbtn">Cancel</button></a>
                 <button class="signUpbtn" type="submit">Sign Up</button>
             </div>
         </form>
     </body>
+    
+    <!-- CONFIRM PASSWORD S-->
+    <script>
+        var password = document.getElementById("password")
+        , confirm_password = document.getElementById("confirm_password");
+
+        function validatePassword(){
+            if(password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
+
 </html>
