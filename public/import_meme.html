@@ -7,6 +7,12 @@
         <base href = "./"> 
         <link rel="stylesheet" href="./assets/css/styles.css">
         <link>
+        <style>
+            .progressbar li {
+                width: calc(100%/2);
+        </style>
+        }
+
     </head>
     <header class="header">
         <a href="./index.html" class="logo">Meme Generator</a>
@@ -18,5 +24,49 @@
         </ul>
     </header>
     <body>
+
+        <nav style="margin-top: 100px;">  
+            <div class="library"><a href="">Import Meme</a></div>
+        </nav>
+        <div class="lineBreak"></div>
+        <div class="container">
+            <ul class="progressbar">
+                <li class="active">Upload</li>
+                <li>Finish</li>
+            </ul>
+        </div>
+
+
+        <div class="outer-div">
+
+
+            <div class="noMemeMessage">
+                <p>(canvas)
+                </p>
+
+            </div>
+        </div>
+
     </body>
+
+
+    <script>
+        $("#advance").on("click", function() {
+            var $bar = $(".ProgressBar");
+            if ($bar.children(".is-current").length > 0) {
+                $bar.children(".is-current").removeClass("is-current").addClass("is-complete").next().addClass("is-current");
+            } else {
+                $bar.children().first().addClass("is-current");
+            }
+        });
+
+        $("#previous").on("click", function() {
+            var $bar = $(".ProgressBar");
+            if ($bar.children(".is-current").length > 0) {
+                $bar.children(".is-current").removeClass("is-current").prev().removeClass("is-complete").addClass("is-current");
+            } else {
+                $bar.children(".is-complete").last().removeClass("is-complete").addClass("is-current");
+            }
+        });</script>
+
 </html>
