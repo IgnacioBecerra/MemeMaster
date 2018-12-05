@@ -142,7 +142,6 @@
 			      var oImg = img.set({left: 0, top: 0, angle: 0});
 			      oImg.scaleToHeight(500);
 			      oImg.scaleToWidth(500);
-			      console.log(oImg);
 			      if(oImg.height > canvas.height) {
 
 			      	let newHeight = (500*oImg.height)/oImg.width;
@@ -203,11 +202,10 @@
 
 				let jsonObj = JSON.stringify(canvas.toDatalessJSON());
 				// TODO
-				db.collection("meme").doc("name").set({
-				    first: "Ada",
-				    last: "Lovelace",
-				    born: 1815
-				})
+				db.collection(firebase.auth().currentUser.email).doc("name").set({
+				    name: "name",
+				    jsonImage: jsonObj
+				});
 			}
 
 		</script>

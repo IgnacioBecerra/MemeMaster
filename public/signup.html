@@ -7,6 +7,22 @@
         <base href = "./"> 
         <link rel="stylesheet" href="./assets/css/styles.css">
         <link>
+
+        <!-- Firebase code -->
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
+            authDomain: "mememaster-9b27a.firebaseapp.com",
+            databaseURL: "https://mememaster-9b27a.firebaseio.com",
+            projectId: "mememaster-9b27a",
+            storageBucket: "mememaster-9b27a.appspot.com",
+            messagingSenderId: "825635617975"
+          };
+          var defaultApp = firebase.initializeApp(config);
+          var db = firebase.firestore();
+        </script>
     </head>
     <header class="header">
         <a href="./index.html" class="logo">Meme Generator</a>
@@ -18,12 +34,12 @@
         </ul>
     </header>
     <body>
-        <form class="user-form" id="singupform" action="">
+        <div class="user-form" id="singupform">
             <div class="container">
                 <h1>Sign Up</h1>
                 <label for="uname">Username</label>
                 <br>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input id='email' type="text" placeholder="Enter Username" name="uname" required>
                 <br>
                 <label for="psw">Password</label>
                 <br>
@@ -33,26 +49,46 @@
                 <input id="confirm_password" type="password" placeholder="Confirm Password" name="cfmpsw" required>
                 <br>
                 <a href="./index.html"><button type="button" class="cancelbtn">Cancel</button></a>
-                <button class="signUpbtn" type="submit">Sign Up</button>
+                <button class="signUpbtn" type="submit" onclick="addUser()">Sign Up</button>
             </div>
-        </form>
+        </div>
     </body>
     
     <!-- CONFIRM PASSWORD S-->
     <script>
-        var password = document.getElementById("password")
-        , confirm_password = document.getElementById("confirm_password");
 
-        function validatePassword(){
-            if(password.value != confirm_password.value) {
-                confirm_password.setCustomValidity("Passwords Don't Match");
-            } else {
-                confirm_password.setCustomValidity('');
-            }
+        function addUser() {
+            
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var confirm_password = document.getElementById("confirm_password").value;
+
+            if(password != confirm_password) {
+                alert("Passwords Don't Match");
+                return;
+            } 
+            
+        
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (errorCode == 'auth/weak-password') {
+                  alert('The password is too weak.');
+                } else {
+                  alert(errorMessage);
+                }
+                console.log(error);
+
+            });
+
+            firebase.auth().onAuthStateChanged(user => {
+              if(user) {
+                window.location = './library.html'; //After successful login, user will be redirected to home.html
+              }
+            });
         }
 
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
+
     </script>
 
 </html>

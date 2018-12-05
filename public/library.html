@@ -7,7 +7,21 @@
         <base href = "./"> 
         <link rel="stylesheet" href="./assets/css/styles.css">
         <link>
-
+        <!-- Firebase code -->
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
+            authDomain: "mememaster-9b27a.firebaseapp.com",
+            databaseURL: "https://mememaster-9b27a.firebaseio.com",
+            projectId: "mememaster-9b27a",
+            storageBucket: "mememaster-9b27a.appspot.com",
+            messagingSenderId: "825635617975"
+          };
+          var defaultApp = firebase.initializeApp(config);
+          var db = firebase.firestore();
+        </script>
     </head>
 
     <header class="header">
@@ -16,8 +30,8 @@
             <input class="menu-btn" type="checkbox" id="menu-btn" />
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <ul class="menu">
-                <li><a href="./login.html">Log In</a></li>
-                <li><a href="./signup.html">Sign Up</a></li>
+                <li><a href="./library.html">Library</a></li>
+                <li><a id='profile' href="./profile.html"></a></li>
             </ul>
         </div>
     </header>
@@ -46,6 +60,24 @@
                 </p>
             </div>
         </div>
+        
+        <script>
 
+            /* LOGOUT FUNCTION
+            firebase.auth().signOut().then(function() {
+              // Sign-out successful.
+            }, function(error) {
+              // An error happened.
+            });
+            */
+            firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                document.getElementById('profile').text = user.email;
+                // ...
+              } else {
+                console.log("not logged in");
+              }
+            });
+        </script>
     </body>
 </html>

@@ -6,6 +6,21 @@
         <title>Log In</title>
         <base href = "./"> 
         <link rel="stylesheet" href="./assets/css/styles.css">
+        <!-- Firebase code -->
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
+            authDomain: "mememaster-9b27a.firebaseapp.com",
+            databaseURL: "https://mememaster-9b27a.firebaseio.com",
+            projectId: "mememaster-9b27a",
+            storageBucket: "mememaster-9b27a.appspot.com",
+            messagingSenderId: "825635617975"
+          };
+          var defaultApp = firebase.initializeApp(config);
+          var db = firebase.firestore();
+        </script>
     </head>
 
     <header class="header">
@@ -20,19 +35,19 @@
 
     <body>
 
-        <form class="user-form" id="loginform" action="">
+        <div class="user-form" id="loginform" >
             <div class="container">
                 <h1>Log In</h1>
                 <label for="uname">Username</label>
                 <br>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input id='email' type="text" placeholder="Enter Username" name="uname" required>
                 <br>
                 <label for="psw">Password</label>
                 <br>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input id='password' type="password" placeholder="Enter Password" name="psw" required>
                 <br>
-                <a href="./index.html"><button type="button" class="cancelbtn">Cancel</button></a>
-                <button class="loginbtn" type="submit">Log In</button>
+                <a href="./index.html"><button type="button" id='cancel' class="cancelbtn">Cancel</button></a>
+                <button class="loginbtn" type="submit" onclick="login()">Log In</button>
             </div>
 
             <div class="container">
@@ -40,6 +55,40 @@
                 <span class="register">Don't have an acccount yet? <a href="./signup.html"><u>Sign Up here</u></a></span>
                 <br>
             </div>
-        </form>
+        </div>
+
+        <script>
+            function login() {
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                  // Handle Errors here.
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+                  // ...
+                });
+
+                firebase.auth().onAuthStateChanged(function(user) {
+                  if (user) {
+                    console.log("signed in");
+                    // ...
+                  } else {
+                    // User is signed out.
+                    // ...
+                  }
+                });
+            }
+
+            firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                console.log("signed in");
+                // ...
+              } else {
+                // User is signed out.
+                // ...
+              }
+            });
+        </script>
     </body>
 </html>
