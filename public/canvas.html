@@ -8,6 +8,7 @@
 
 		<base href="./">
 		<script src="./assets/js/fabric.min.js"></script>
+		<script src="./assets/js/jscolor.js"></script>
 		<style>
 			canvas {
 			margin-top: 5px;
@@ -23,11 +24,67 @@
 		<input id='file' type="file"><br>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
-		<input class="input" data-text="text1" value="text1" id="cardalltexthex1" />
-		<input class="input" data-text="text2" value="text2" id="cardalltexthex2" />
+		<input class="input" data-text="TEXT1" value="text1" id="cardalltexthex1" />
+
+
+		<button class="jscolor {valueElement: null, onFineChange:'changeColor(this, 1)'}" style="width:25px; height:25px;"></button>
+		<button class="jscolor {valueElement: null, value: '000000', onFineChange:'changeColor(this, 1.5)'}" style="width:25px; height:25px;" value="000000"></button>
+
+
+		<input class="input" data-text="TEXT2" value="text2" id="cardalltexthex2" />
+
+
+		<button class="jscolor {valueElement: null, onFineChange:'changeColor(this, 2)'}" style="width:25px; height:25px;"></button>
+		<button class="jscolor {valueElement: null, value: '000000', onFineChange:'changeColor(this, 2.5)'}" style="width:25px; height:25px;"></button>	
+		
+		<br>
+		<br>
+
 		<button id='reset' onclick="canvasClear()">Reset Canvas</button>
 		
+
+		<!-- Firebase code -->
+		<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+		  var config = {
+		    apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
+		    authDomain: "mememaster-9b27a.firebaseapp.com",
+		    databaseURL: "https://mememaster-9b27a.firebaseio.com",
+		    projectId: "mememaster-9b27a",
+		    storageBucket: "mememaster-9b27a.appspot.com",
+		    messagingSenderId: "825635617975"
+		  };
+		  var defaultApp = firebase.initializeApp(config);
+		  var db = firebase.firestore();
+		</script>
+		
+
 		<script type="text/javascript">
+
+			function changeColor(e, id) {
+				let col = '#' + e;
+
+				if(id === 1) {
+					text1.set({fill: col});
+					canvas.remove(text1);
+					canvas.add(text1);
+				} else if(id === 2) {
+					canvas.remove(text2);
+					text2.set({fill: col});
+					canvas.add(text2);
+				}
+
+				if(id === 1.5) {
+					text1.set({stroke: col});
+					canvas.remove(text1);
+					canvas.add(text1);
+				} else if(id === 2.5) {
+					canvas.remove(text2);
+					text2.set({stroke: col});
+					canvas.add(text2);
+				}
+			}
 
 			function canvasClear() {
 				canvas.clear();
@@ -48,7 +105,7 @@
 			  fontSize: 40,
 			  left: 0,
 			  top: 10,
-			  text: "text1",
+			  text: "TEXT1",
 			  fill: 'white',
 			  stroke: 'black',
 			  strokeWidth : 2,
@@ -56,7 +113,7 @@
 			  editable: false
 			});
 
-			text2 = new fabric.Textbox("Text", {
+			var text2 = new fabric.Textbox("Text", {
 			  width: 500,
 			  fixedWidth: 500,
 			  id: "cardalltexthex2",
@@ -64,7 +121,7 @@
 			  fontSize: 40,
 			  left: 0,
 			  top: 425,
-			  text: "text2",
+			  text: "TEXT2",
 			  fill: 'white',
 			  stroke: 'black',
 			  strokeWidth: 2,
@@ -85,6 +142,14 @@
 			      var oImg = img.set({left: 0, top: 0, angle: 0});
 			      oImg.scaleToHeight(500);
 			      oImg.scaleToWidth(500);
+			      console.log(oImg);
+			      if(oImg.height > canvas.height) {
+
+			      	let newHeight = (500*oImg.height)/oImg.width;
+			      	canvas.setHeight(newHeight);
+			      	text2.top = newHeight*0.80;
+			      	canvas.add(text2);
+			      }
 			      oImg.lockMovementX = true;
 			      oImg.lockMovementY = true;
 			      oImg.lockScalingX = true;
@@ -130,7 +195,24 @@
 			but.innerHTML = "Download Image";
 			document.getElementById('link').appendChild(but)
 
+			function processImage() {
+				canvas.forEachObject(function(obj){
+				       obj.sourcePath = '/URL/FILE.svg';
+				       console.log(obj.sourcePath)
+				});
+
+				let jsonObj = JSON.stringify(canvas.toDatalessJSON());
+				// TODO
+				db.collection("meme").doc("name").set({
+				    first: "Ada",
+				    last: "Lovelace",
+				    born: 1815
+				})
+			}
+
 		</script>
+
+		<button onclick="processImage()">Next</button>
 
 		
 	</body>
