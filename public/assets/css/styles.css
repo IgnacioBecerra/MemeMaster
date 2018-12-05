@@ -264,3 +264,108 @@ span.register {
         margin: 120px 5%;
     }
 }
+
+
+/* LIBRARY-HEADER */
+nav {
+    list-style: none;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    justify-content: flex;
+    align-items: center;
+
+}
+nav a {
+    text-decoration: none;
+    display: block;
+    padding: 10px 1em;
+    color: black;
+}
+
+nav .library {
+    display: block;
+    float: left;
+    font-size: 2em;
+    padding: 10px 20px;
+
+    text-decoration: none;
+}
+
+nav .spacer {
+    flex-grow: 0.9;
+}
+nav .searchForm {
+    width: 20em;
+    padding: 0 20px;
+}
+
+nav input {
+    height: 45px;
+
+}
+
+#import:hover {
+    background-color: #DA7F7F;
+    border: 2px solid #DA7F7F;
+}
+
+#createNew:hover {
+    background-color: #DA7F7F;
+    border: 2px solid #DA7F7F;
+}
+
+
+#import {
+    text-align: center;
+    width: 7em;
+    background-color: #E19C9C;
+    border: 2px solid #E19C9C;
+    border-radius: 2px;
+    color: white;
+    margin: 0 1em;
+}
+
+#createNew {
+    text-align: center;
+    width: 7em;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #E19C9C;
+    border: 2px solid #E19C9C;
+    border-radius: 2px;
+    color: white;
+    margin: 0 1em;
+}
+
+@media screen and (max-width: 1000px) {
+
+    nav .spacer {
+        width: 100%;
+    }
+
+    nav .spacer2 {
+        width: 100%;
+    } 
+}
+
+.lineBreak {
+    display: block;
+    height: 1px;
+    border: 0;
+    //border-top: 2px solid #ccc;
+    box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+    margin: 1em 0;
+    padding: 0; 
+}
+
+
+.outer-div
+{
+     padding: 30px;
+     text-align: center;
+}
+
+.noMemeMessage {
+display: inline-block;
+     padding: 50px;
+}

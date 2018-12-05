@@ -7,16 +7,45 @@
         <base href = "./"> 
         <link rel="stylesheet" href="./assets/css/styles.css">
         <link>
+
     </head>
+
     <header class="header">
-        <a href="./index.html" class="logo">Meme Generator</a>
-        <input class="menu-btn" type="checkbox" id="menu-btn" />
-        <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-        <ul class="menu">
-            <li><a href="./login.html">Log In</a></li>
-            <li><a href="./signup.html">Sign Up</a></li>
-        </ul>
+        <div>
+            <a href="./index.html" class="logo">Meme Generator</a>
+            <input class="menu-btn" type="checkbox" id="menu-btn" />
+            <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+            <ul class="menu">
+                <li><a href="./login.html">Log In</a></li>
+                <li><a href="./signup.html">Sign Up</a></li>
+            </ul>
+        </div>
     </header>
     <body>
+
+        <nav style="margin-top: 100px;">  
+            <li class="library"><a href="">Your Library</a></li>
+
+
+            <div class="spacer"></div>
+            <li>
+                <form class="searchForm">
+                    <input type="text" placeholder="Search">
+                    <!-- <button type="submit">Search</button> -->
+                </form>
+            </li>
+            <div class="spacer2" id="spacer2" style="display: none;"></div>
+            <li class="import-btn"><a href="" id="import">Import</a></li>
+            <li class="create-btn"><a href="" id="createNew">Create New</a></li>
+        </nav>
+
+        <div class="lineBreak"></div>
+        <div class="outer-div">
+            <div class="noMemeMessage">
+                <p>Oh no! You have no saved memes yet!  D:
+                </p>
+            </div>
+        </div>
+
     </body>
 </html>
