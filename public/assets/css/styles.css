@@ -273,7 +273,6 @@ nav {
     -webkit-flex-flow: row wrap;
     justify-content: flex;
     align-items: center;
-
 }
 nav a {
     text-decoration: none;
@@ -286,8 +285,7 @@ nav .library {
     display: block;
     float: left;
     font-size: 2em;
-    padding: 10px 20px;
-
+    padding: 0 20px;
     text-decoration: none;
 }
 
@@ -361,11 +359,19 @@ nav input {
 
 .outer-div
 {
-     padding: 30px;
-     text-align: center;
+    padding: 30px;
+    text-align: center;
 }
 
+
+/* NO MEME WARNING IF LIBRARY EMPTY */
 .noMemeMessage {
-display: inline-block;
-     padding: 50px;
+    display: inline-block;
+    padding: 50px;
 }
+
+.noMemeMessage p{
+    font-size: 1.2em;
+    color: gray;
+}
+
