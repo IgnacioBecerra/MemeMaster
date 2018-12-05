@@ -358,15 +358,16 @@ nav input {
 }
 
 .outer-div {
+    margin: 100px 0;
     padding: 30px;
     text-align: center;
 }
 
 .inner-div {
-    margin: 0px 0;
+    margin: 0px auto;
     display: grid;
     margin: 0 10%;
-    grid-template-columns:  60% 30%;
+    grid-template-columns:  50% 50%;
     grid-gap: 10px;
 }
 
@@ -383,10 +384,14 @@ nav input {
 }
 
 .inputView {
+    background-color: antiquewhite;
+    text-align: justify;
 
 }
 
 .inputPanel {
+    background-color:coral;
+    padding-bottom: 10px;;
 
 }
 
@@ -394,9 +399,22 @@ nav input {
     border: 1px solid GRAY;
 }
 
-.buttonsPanel {
+.buttonPanel {
+    background-color:deepskyblue;
+
 }
 
+.buttonPanel #reset {
+
+}
+
+.buttonPanel #next {
+
+}
+
+#downloadImage {
+
+}
 
 
 
