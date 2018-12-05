@@ -6,13 +6,15 @@
         <title>Create Your Custom Meme</title>
         <base href = "./"> 
         <link rel="stylesheet" href="./assets/css/styles.css">
-        <link>
-        
+        <script src="./assets/js/fabric.min.js"></script>
+        <script src="./assets/js/jscolor.js"></script>
+
         <style>
             .progressbar li {
-                width: calc(100%/3);
+                width: calc(100%/2);
+            }
         </style>
-        
+
     </head>
     <header class="header">
         <a href="./index.html" class="logo">Meme Generator</a>
@@ -28,29 +30,229 @@
         <nav style="margin-top: 100px;">  
             <div class="library"><a href="">Create Meme</a></div>
         </nav>
-                <div class="lineBreak"></div>
-        <div class="container">
+        <div class="lineBreak"></div>
+        <div class="progressbar-container">
             <ul class="progressbar">
-                <li class="active">Upload</li>
-                <li>Stylize</li>
+                <li class="active">Upload + Stylize</li>
                 <li>Finish</li>
             </ul>
         </div>
 
-        
-        <div class="outer-div">
 
-     
-            <div class="noMemeMessage">
-                <p>(canvas)
-                </p>
-                
+        <div class="outer-div" style="margin: 100px 0;">
+            <div class="inner-div">
+                <div class="canvasView">
+                    <canvas id="canvas" height="400" width="400"></canvas>
+                </div>
+
+                <div class="inputView">
+                    <div class="inputPanel">
+                        <!-- SELECT FILE -->
+                        <input id='file' type="file"><br>
+
+                        <!-- CHANGE TOP TEXT -->
+                        <input class="input" data-text="TEXT1" value="text1" id="cardalltexthex1" />
+
+                        <button class="jscolor {valueElement: null, onFineChange:'changeColor(this, 1)'}" style="width:25px; height:25px;"></button>
+
+                        <button class="jscolor {valueElement: null, value: '000000', onFineChange:'changeColor(this, 1.5)'}" style="width:25px; height:25px;" value="000000"></button>
+
+                        <br>
+
+                        <!-- CHANGE TOP TEXT -->
+                        <input class="input" data-text="TEXT2" value="text2" id="cardalltexthex2" />
+                        <button class="jscolor {valueElement: null, onFineChange:'changeColor(this, 2)'}" style="width:25px; height:25px;"></button>
+
+                        <button class="jscolor {valueElement: null, value: '000000', onFineChange:'changeColor(this, 2.5)'}" style="width:25px; height:25px;"></button>	
+                    </div>
+
+                    <div class="buttonPanel">
+                        <button id='reset' onclick="canvasClear()">Reset Canvas</button>
+                        <button id="next" onclick="processImage()">Next</button>
+                    </div>
+                </div>
             </div>
+
+            <br>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+
+
+
+            <!-- Firebase code -->
+            <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+            <script>
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
+                    authDomain: "mememaster-9b27a.firebaseapp.com",
+                    databaseURL: "https://mememaster-9b27a.firebaseio.com",
+                    projectId: "mememaster-9b27a",
+                    storageBucket: "mememaster-9b27a.appspot.com",
+                    messagingSenderId: "825635617975"
+                };
+                var defaultApp = firebase.initializeApp(config);
+                var db = firebase.firestore();
+            </script>
+
+
+            <script type="text/javascript">
+
+                function changeColor(e, id) {
+                    let col = '#' + e;
+
+                    if(id === 1) {
+                        text1.set({fill: col});
+                        canvas.remove(text1);
+                        canvas.add(text1);
+                    } else if(id === 2) {
+                        canvas.remove(text2);
+                        text2.set({fill: col});
+                        canvas.add(text2);
+                    }
+
+                    if(id === 1.5) {
+                        text1.set({stroke: col});
+                        canvas.remove(text1);
+                        canvas.add(text1);
+                    } else if(id === 2.5) {
+                        canvas.remove(text2);
+                        text2.set({stroke: col});
+                        canvas.add(text2);
+                    }
+                }
+
+                function canvasClear() {
+                    canvas.clear();
+                    document.getElementById("file").value = null;
+                }
+
+                var canvas = new fabric.Canvas('canvas');
+                canvas.selection = false;
+                canvas.forEachObject(function(o) {
+                    o.selectable = false;
+                });
+
+                var text1 = new fabric.Textbox("Text", {
+                    width: 400,
+                    fixedWidth: 400,
+                    id: "cardalltexthex1",
+                    fontFamily: "Impact",
+                    fontSize: 40,
+                    left: 0,
+                    top: 10,
+                    text: "TEXT1",
+                    fill: 'white',
+                    stroke: 'black',
+                    strokeWidth : 2,
+                    textAlign: 'center',
+                    editable: false
+                });
+
+                var text2 = new fabric.Textbox("Text", {
+                    width: 400,
+                    fixedWidth: 400,
+                    id: "cardalltexthex2",
+                    fontFamily: "Impact",
+                    fontSize: 40,
+                    left: 0,
+                    top: 425,
+                    text: "TEXT2",
+                    fill: 'white',
+                    stroke: 'black',
+                    strokeWidth: 2,
+                    textAlign: 'center',
+                    editable: false
+                });
+
+
+
+                document.getElementById('file').addEventListener("change", function (e) {
+                    canvas.clear();
+                    var file = e.target.files[0];
+                    var reader = new FileReader();
+
+                    reader.onload = function (f) {
+                        var data = f.target.result;                    
+                        fabric.Image.fromURL(data, function (img) {
+                            var oImg = img.set({left: 0, top: 0, angle: 0});
+                            oImg.scaleToHeight(400);
+                            oImg.scaleToWidth(400);
+                            console.log(oImg);
+                            if(oImg.height > canvas.height) {
+
+                                let newHeight = (400*oImg.height)/oImg.width;
+                                canvas.setHeight(newHeight);
+                                text2.top = newHeight*0.80;
+                                canvas.add(text2);
+                            }
+                            oImg.lockMovementX = true;
+                            oImg.lockMovementY = true;
+                            oImg.lockScalingX = true;
+                            oImg.lockScalingY = true;
+                            oImg.lockRotation = true;
+                            oImg.selectable = false;
+                            canvas.hoverCursor = 'defaultCursor'
+                            canvas.add(oImg).sendToBack(oImg).renderAll();
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                    canvas.add(text1);
+                    canvas.add(text2);
+                    canvas.renderAll();
+
+                });
+
+                $('.input').on('keyup', function() {
+                    id = $(this).attr('id');
+                    val = $(this).attr('data-text');
+                    newtext = $(this).val();
+                    input = $(this);
+
+                    var objs = canvas.getObjects();
+                    objs.forEach(function(obj) {
+                        if (obj && obj.text == val) {
+                            obj.text = newtext.toUpperCase();
+                            input.attr("data-text", newtext.toUpperCase());
+                            canvas.renderAll();
+                        }
+                    });
+                });
+
+                var link = document.createElement('a');
+                link.id = 'link';
+                link.addEventListener('click', function(ev) {
+                    link.href = canvas.toDataURL();
+                    link.download = "mypainting.png";
+                }, false);
+                document.body.appendChild(link);
+
+                var but = document.createElement('button');
+                but.innerHTML = "Download Image";
+                but.id="downloadImage";
+                document.getElementById('link').appendChild(but);
+
+                function processImage() {
+                    canvas.forEachObject(function(obj){
+                        obj.sourcePath = '/URL/FILE.svg';
+                        console.log(obj.sourcePath)
+                    });
+
+                    let jsonObj = JSON.stringify(canvas.toDatalessJSON());
+                    // TODO
+                    db.collection("meme").doc("name").set({
+                        first: "Ada",
+                        last: "Lovelace",
+                        born: 1815
+                    })
+                }
+
+            </script>
         </div>
 
     </body>
 
-
+    <!-- Progress Bar (JQUERY) -->
     <script>
         $("#advance").on("click", function() {
             var $bar = $(".ProgressBar");
@@ -68,6 +270,15 @@
             } else {
                 $bar.children(".is-complete").last().removeClass("is-complete").addClass("is-current");
             }
-        });</script>
+        });
+    </script>
 
 </html>
+
+
+<style>
+    .progressbar li {
+        width: calc(100%/2);
+    }
+
+</style>
