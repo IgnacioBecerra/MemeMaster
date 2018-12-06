@@ -72,6 +72,7 @@
                 firebase.auth().onAuthStateChanged(function(user) {
                   if (user) {
                     console.log("signed in");
+                    window.location = './library.html'
                     // ...
                   } else {
                     // User is signed out.
@@ -79,16 +80,6 @@
                   }
                 });
             }
-
-            firebase.auth().onAuthStateChanged(function(user) {
-              if (user) {
-                console.log("signed in");
-                // ...
-              } else {
-                // User is signed out.
-                // ...
-              }
-            });
         </script>
     </body>
 </html>

@@ -201,7 +201,7 @@
 				       console.log(obj.sourcePath)
 				});
 
-				let editableCanvas = JSON.stringify(canvas);
+				let editableCanvas = JSON.stringify(canvas.toDatalessJSON());
 				let flatImg = canvas.toDataURL('image/png');
 				var name;
 
@@ -212,6 +212,18 @@
    					    imgURL: flatImg
    					});
 				});
+
+
+				db.collection(firebase.auth().currentUser.email).doc('0').get().then(function(doc) {
+					//document.write('<img src="'+doc.data().imgURL+'"/>');
+					canvas.loadFromJSON(doc.data().jsonImage, function() {
+					   canvas.renderAll(); 
+					},function(o,object){
+					   console.log(o,object)
+					})
+				});
+				
+				
 			}
 
 		</script>
