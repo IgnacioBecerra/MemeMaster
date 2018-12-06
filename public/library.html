@@ -10,17 +10,17 @@
         <!-- Firebase code -->
         <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
         <script>
-          // Initialize Firebase
-          var config = {
-            apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
-            authDomain: "mememaster-9b27a.firebaseapp.com",
-            databaseURL: "https://mememaster-9b27a.firebaseio.com",
-            projectId: "mememaster-9b27a",
-            storageBucket: "mememaster-9b27a.appspot.com",
-            messagingSenderId: "825635617975"
-          };
-          var defaultApp = firebase.initializeApp(config);
-          var db = firebase.firestore();
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
+                authDomain: "mememaster-9b27a.firebaseapp.com",
+                databaseURL: "https://mememaster-9b27a.firebaseio.com",
+                projectId: "mememaster-9b27a",
+                storageBucket: "mememaster-9b27a.appspot.com",
+                messagingSenderId: "825635617975"
+            };
+            var defaultApp = firebase.initializeApp(config);
+            var db = firebase.firestore();
         </script>
     </head>
 
@@ -50,17 +50,87 @@
             </li>
             <div class="spacer2" id="spacer2" style="display: none;"></div>
             <li class="import-btn"><a href="" id="import">Import</a></li>
-            <li class="create-btn"><a href="" id="createNew">Create New</a></li>
+            <li class="create-btn"><a href="./create_new.html" id="createNew">Create New</a></li>
         </nav>
 
         <div class="lineBreak"></div>
+
         <div class="outer-div">
+
+
+            <div class="meme-grid">
+
+                <!-- meme 0 -->
+                <div class="memeBox" id="memeBox{{Index}}">
+                    <!-- Image square -->
+                    <div class="imageBox">
+                        <img src="{{Link}}" class="memePic">
+                    </div>
+
+                    <div class="descriptionBox">
+                        <p class="descriptionText" id="keywords"><a href="{{WebsiteLink}}">Keywords: {{Description}}</a></p>
+                        
+                        <div class="memeControlPanel">
+                            <image class="memeControl" id="deleteButton" src="./assets/img/delete.png" alt="delte"></image>
+                            <image class="memeControl" id="editButton" src="./assets/img/edit.png" alt="edit"></image>
+                            <image class="memeControl" id="shareButton" src="./assets/img/share.png" alt="share"></image>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- meme 1 -->
+                <div class="memeBox" id="memeBox{{Index}}">
+                    <!-- Image square -->
+                    <div class="imageBox">
+                        <img src="{{Link}}" class="memePic">
+                    </div>
+
+                    <div class="descriptionBox">
+                        <p class="descriptionText" id="keywords"><a href="{{WebsiteLink}}">Keywords: {{Description}}</a></p>
+                    </div>
+                </div>
+
+
+                <!-- meme 2 -->
+
+                <div class="memeBox" id="memeBox{{Index}}">
+                    <!-- Image square -->
+                    <div class="imageBox">
+                        <img src="{{Link}}" class="memePic">
+                    </div>
+
+
+                    <div class="descriptionBox">
+                        <p class="descriptionText" id="keywords"><a href="{{WebsiteLink}}">Keywords: {{Description}}</a></p>
+                    </div>
+                </div>
+
+                <!-- meme 3 -->
+                <div class="memeBox" id="memeBox{{Index}}">
+                    <!-- Image square -->
+                    <div class="imageBox">
+                        <img src="{{Link}}" class="memePic">
+                    </div>
+
+                    <div class="descriptionBox">
+                        <p class="descriptionText" id="keywords"><a href="{{WebsiteLink}}">Keywords: {{Description}}</a></p>
+                    </div>
+                </div>
+
+            </div>
+
+
+
             <div class="noMemeMessage">
                 <p>Oh no! You have no saved memes yet!    D:
                 </p>
+
             </div>
+
         </div>
-        
+
         <script>
 
             /* LOGOUT FUNCTION
@@ -71,12 +141,12 @@
             });
             */
             firebase.auth().onAuthStateChanged(function(user) {
-              if (user) {
-                document.getElementById('profile').text = user.email;
-                // ...
-              } else {
-                window.location = './signup.html';
-              }
+                if (user) {
+                    document.getElementById('profile').text = user.email;
+                    // ...
+                } else {
+                    window.location = './signup.html';
+                }
             });
         </script>
     </body>
