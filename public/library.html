@@ -58,17 +58,18 @@
         <div class="outer-div">
 
 
-            <div class="meme-grid">
+            
 
+             <script id="results-template" type="text/x-handlebars-template">
                 <!-- meme 0 -->
                 <div class="memeBox" id="memeBox{{Index}}">
                     <!-- Image square -->
                     <div class="imageBox">
-                        <img src="{{Link}}" class="memePic">
+                        <img src="{{imgURL}}" class="memePic">
                     </div>
 
                     <div class="descriptionBox">
-                        <p class="descriptionText" id="keywords"><a href="{{WebsiteLink}}">Keywords: {{Description}}</a></p>
+                        <p class="descriptionText" id="keywords">Keywords: {{Description}}</p>
                         
                         <div class="memeControlPanel">
                             <image class="memeControl" id="deleteButton" src="./assets/img/delete.png" alt="delte"></image>
@@ -77,50 +78,42 @@
                         </div>
                     </div>
                 </div>
+             </script>
+            
 
-
-
-                <!-- meme 1 -->
-                <div class="memeBox" id="memeBox{{Index}}">
-                    <!-- Image square -->
-                    <div class="imageBox">
-                        <img src="{{Link}}" class="memePic">
-                    </div>
-
-                    <div class="descriptionBox">
-                        <p class="descriptionText" id="keywords"><a href="{{WebsiteLink}}">Keywords: {{Description}}</a></p>
-                    </div>
-                </div>
-
-
-                <!-- meme 2 -->
-
-                <div class="memeBox" id="memeBox{{Index}}">
-                    <!-- Image square -->
-                    <div class="imageBox">
-                        <img src="{{Link}}" class="memePic">
-                    </div>
-
-
-                    <div class="descriptionBox">
-                        <p class="descriptionText" id="keywords"><a href="{{WebsiteLink}}">Keywords: {{Description}}</a></p>
-                    </div>
-                </div>
-
-                <!-- meme 3 -->
-                <div class="memeBox" id="memeBox{{Index}}">
-                    <!-- Image square -->
-                    <div class="imageBox">
-                        <img src="{{Link}}" class="memePic">
-                    </div>
-
-                    <div class="descriptionBox">
-                        <p class="descriptionText" id="keywords"><a href="{{WebsiteLink}}">Keywords: {{Description}}</a></p>
-                    </div>
-                </div>
-
+            <div class="meme-grid">
             </div>
 
+            <!-- Fill template -->
+        <script>
+            $(document).ready(function() {
+
+                var source = $("#results-template").html();
+                var template = Handlebars.compile(source);
+
+                var parentDiv = getElementsByClassName('grid')[0];
+
+
+                for (var i = 0; i < local_data.length; i++) {
+                  var curData = local_data[i];
+
+                  // skip the items with null values
+                  if(local_data[i].Description === "Null") {
+                      continue;
+                  }
+
+                  if (curData.Item.toUpperCase() === projectTitle.toUpperCase()) {
+                    var curHtml = template(curData);
+                    parentDiv.append(curHtml);
+                  }
+                }
+
+                document.getElementById('sortingMenuId').selectedIndex = 0;
+                document.getElementById('sortingMenuId').dispatchEvent(new Event('change'));
+                document.getElementsByClassName('miniSearchBar')[0].value = projectTitle;
+            });
+        </script>
+        <script src="js/handlebars-v4.0.12.js"></script>
 
 
             <div class="noMemeMessage">

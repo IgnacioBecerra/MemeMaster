@@ -255,7 +255,8 @@
    					name = snap.size.toString();
    					db.collection(firebase.auth().currentUser.email).doc(name).set({
    					    jsonImage: editableCanvas,
-   					    imgURL: flatImg
+   					    imgURL: flatImg,
+   					    index: name
    					});
 				});
 			}
