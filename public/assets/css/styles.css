@@ -294,12 +294,12 @@ nav .spacer {
     flex-grow: 0.9;
 }
 nav .searchForm {
-    width: 20em;
     padding: 0 20px;
 }
 
 nav input {
     height: 45px;
+    width: 20em;
 
 }
 
@@ -312,7 +312,6 @@ nav input {
     background-color: #DA7F7F;
     border: 2px solid #DA7F7F;
 }
-
 
 #import {
     text-align: center;
@@ -337,7 +336,6 @@ nav input {
 }
 
 @media screen and (max-width: 1000px) {
-
     nav .spacer {
         width: 100%;
     }
@@ -423,11 +421,6 @@ nav input {
 
 
 
-
-
-
-
-
 /* NO MEME WARNING IF LIBRARY EMPTY */
 .noMemeMessage {
     display: inline-block;
@@ -500,7 +493,7 @@ nav input {
     display: grid;
     align-items: center;
     margin: auto;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: auto auto auto auto;
 }
 
@@ -510,6 +503,10 @@ nav input {
     height: 90%;
     border: solid 1px #979797;
     background-color: #ffffff;
+}
+
+.memeBox .memePic {
+    width: 100%;
 }
 
 
@@ -522,7 +519,7 @@ nav input {
     background-color: #ffffff;
 }
 
- 
+
 .outer-div .meme-grid .descriptionBox {
     margin: 2% auto;
     width: 90%;
@@ -534,7 +531,7 @@ nav input {
 .memeControlPanel {
     float: right;
     padding: 0 4px;
-   
+
 }
 
 .memeControl {
