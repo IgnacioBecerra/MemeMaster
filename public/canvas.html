@@ -89,6 +89,18 @@
 			function canvasClear() {
 				canvas.clear();
 				document.getElementById("file").value = null;
+
+				document.getElementById("file").value = null;
+				document.getElementById('cardalltexthex1').value = 'text1';
+				document.getElementById('cardalltexthex2').value = 'text2';
+
+				document.getElementById('cardalltexthex1').setAttribute('data-text', 'TEXT1');
+				document.getElementById('cardalltexthex2').setAttribute('data-text', 'TEXT2');
+
+				text1.text = 'TEXT1';
+				text2.text = 'TEXT2';
+
+				console.log(document.getElementById('cardalltexthex2').outerHTML);
 			}
 
 			var canvas = new fabric.Canvas('canvas');

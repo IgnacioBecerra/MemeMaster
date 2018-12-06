@@ -89,6 +89,8 @@
 			function canvasClear() {
 				canvas.clear();
 				document.getElementById("file").value = null;
+				document.getElementById('cardalltexthex1').value = 'TEXT1';
+				document.getElementById('cardalltexthex2').value = 'TEXT2';
 			}
 
 			var canvas = new fabric.Canvas('canvas');
@@ -214,6 +216,8 @@
 				});
 
 
+
+				/* TO GET THE IMAGE */
 				db.collection(firebase.auth().currentUser.email).doc('0').get().then(function(doc) {
 					//document.write('<img src="'+doc.data().imgURL+'"/>');
 					canvas.loadFromJSON(doc.data().jsonImage, function() {
