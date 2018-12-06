@@ -22,6 +22,8 @@
 		<canvas id="canvas" width="500" height="500"></canvas>
 		<br>
 		<input id='file' type="file"><br>
+		<input id='netImg' type='text'>
+		<button id='netUpload'>URL</button>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
 		<input class="input" data-text="TEXT1" value="text1" id="cardalltexthex1" />
@@ -61,6 +63,37 @@
 		
 
 		<script type="text/javascript">
+
+			document.getElementById('netUpload').addEventListener('click', function(e) {
+
+				console.log('asdsa');
+
+				data = document.getElementById('netImg').value;
+				  fabric.Image.fromURL(data, function (img) {
+				    var oImg = img.set({left: 0, top: 0, angle: 0});
+				    oImg.scaleToHeight(500);
+				    oImg.scaleToWidth(500);
+				    if(oImg.height > canvas.height) {
+
+				    	let newHeight = (500*oImg.height)/oImg.width;
+				    	canvas.setHeight(newHeight);
+				    	text2.top = newHeight*0.80;
+				    	canvas.add(text2);
+				    }
+				    oImg.lockMovementX = true;
+				    oImg.lockMovementY = true;
+				    oImg.lockScalingX = true;
+				    oImg.lockScalingY = true;
+				    oImg.lockRotation = true;
+				    oImg.selectable = false;
+				    canvas.hoverCursor = 'defaultCursor'
+				    canvas.add(oImg).sendToBack(oImg).renderAll();
+				  });
+				
+				canvas.add(text1);
+				canvas.add(text2);
+				canvas.renderAll();
+			});
 
 			function changeColor(e, id) {
 				let col = '#' + e;
@@ -165,6 +198,7 @@
 			  canvas.add(text1);
 			  canvas.add(text2);
 			  canvas.renderAll();
+
 
 			});
 

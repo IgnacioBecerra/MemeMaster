@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang=en-US>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Library Test</title>
+		
+
+		<base href="./">
+		<script src="./assets/js/fabric.min.js"></script>
+		<script src="./assets/js/jscolor.js"></script>
+		<style>
+			canvas {
+			margin-top: 5px;
+			border: 1px solid #ccc
+			}
+		</style>
+		
+	</head>
+
+	<body>
+
+		<div id='meme'>
+		</div>
+		
+
+		<!-- Firebase code -->
+		<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+		<script>
+		  // Initialize Firebase
+		  var config = {
+		    apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
+		    authDomain: "mememaster-9b27a.firebaseapp.com",
+		    databaseURL: "https://mememaster-9b27a.firebaseio.com",
+		    projectId: "mememaster-9b27a",
+		    storageBucket: "mememaster-9b27a.appspot.com",
+		    messagingSenderId: "825635617975"
+		  };
+		  var defaultApp = firebase.initializeApp(config);
+		  var db = firebase.firestore();
+
+
+		  /* Displays all images on library */
+		  firebase.auth().onAuthStateChanged(user => {
+              if(user) {
+              	console.log("logged in");
+
+              	var name = 's';
+
+              	db.collection(firebase.auth().currentUser.email).get().then(snap => {
+   					name = snap.size.toString();
+
+
+   					for(var i = 0; i < name; i++) {
+	   					db.collection(firebase.auth().currentUser.email).doc(i.toString()).get().then(function(doc) {
+	   						var x = document.createElement('img');
+	   						x.src = doc.data().imgURL;
+
+	   						document.getElementById('meme').appendChild(x);
+	   					});
+   					}
+				});
+
+              	
+              }
+            });
+
+		  
+
+		</script>		
+	</body>
+</html>
