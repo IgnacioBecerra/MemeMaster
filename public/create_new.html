@@ -50,6 +50,8 @@
                     <div class="inputPanel">
                         <!-- SELECT FILE -->
                         <input id='file' type="file"><br>
+                        <input id='netImg' type='text'>
+                        <button id='netUpload'>URL</button>
 
                         <!-- CHANGE TOP TEXT -->
                         <input class="input" data-text="TEXT1" value="text1" id="cardalltexthex1" />
@@ -99,6 +101,37 @@
 
             <script type="text/javascript">
 
+                document.getElementById('netUpload').addEventListener('click', function(e) {
+
+                    console.log('asdsa');
+
+                    data = document.getElementById('netImg').value;
+                    fabric.Image.fromURL(data, function (img) {
+                        var oImg = img.set({left: 0, top: 0, angle: 0});
+                        oImg.scaleToHeight(500);
+                        oImg.scaleToWidth(500);
+                        if(oImg.height > canvas.height) {
+
+                            let newHeight = (500*oImg.height)/oImg.width;
+                            canvas.setHeight(newHeight);
+                            text2.top = newHeight*0.80;
+                            canvas.add(text2);
+                        }
+                        oImg.lockMovementX = true;
+                        oImg.lockMovementY = true;
+                        oImg.lockScalingX = true;
+                        oImg.lockScalingY = true;
+                        oImg.lockRotation = true;
+                        oImg.selectable = false;
+                        canvas.hoverCursor = 'defaultCursor'
+                        canvas.add(oImg).sendToBack(oImg).renderAll();
+                    });
+
+                    canvas.add(text1);
+                    canvas.add(text2);
+                    canvas.renderAll();
+                });
+
                 function changeColor(e, id) {
                     let col = '#' + e;
 
@@ -126,6 +159,18 @@
                 function canvasClear() {
                     canvas.clear();
                     document.getElementById("file").value = null;
+
+                    document.getElementById("file").value = null;
+                    document.getElementById('cardalltexthex1').value = 'text1';
+                    document.getElementById('cardalltexthex2').value = 'text2';
+
+                    document.getElementById('cardalltexthex1').setAttribute('data-text', 'TEXT1');
+                    document.getElementById('cardalltexthex2').setAttribute('data-text', 'TEXT2');
+
+                    text1.text = 'TEXT1';
+                    text2.text = 'TEXT2';
+
+                    console.log(document.getElementById('cardalltexthex2').outerHTML);
                 }
 
                 var canvas = new fabric.Canvas('canvas');
@@ -179,7 +224,6 @@
                             var oImg = img.set({left: 0, top: 0, angle: 0});
                             oImg.scaleToHeight(400);
                             oImg.scaleToWidth(400);
-                            console.log(oImg);
                             if(oImg.height > canvas.height) {
 
                                 let newHeight = (400*oImg.height)/oImg.width;
@@ -223,15 +267,15 @@
                 var link = document.createElement('a');
                 link.id = 'link';
                 link.addEventListener('click', function(ev) {
-                    link.href = canvas.toDataURL();
+                    link.href = canvas.toDataURL('image/png');
+                    console.log(link.href);
                     link.download = "mypainting.png";
                 }, false);
                 document.body.appendChild(link);
 
                 var but = document.createElement('button');
                 but.innerHTML = "Download Image";
-                but.id="downloadImage";
-                document.getElementById('link').appendChild(but);
+                document.getElementById('link').appendChild(but)
 
                 function processImage() {
                     canvas.forEachObject(function(obj){
@@ -239,13 +283,18 @@
                         console.log(obj.sourcePath)
                     });
 
-                    let jsonObj = JSON.stringify(canvas.toDatalessJSON());
-                    // TODO
-                    db.collection("meme").doc("name").set({
-                        first: "Ada",
-                        last: "Lovelace",
-                        born: 1815
-                    })
+                    let editableCanvas = JSON.stringify(canvas);
+                    let flatImg = canvas.toDataURL('image/png');
+                    var name;
+
+                    db.collection(firebase.auth().currentUser.email).get().then(snap => {
+                        name = snap.size.toString();
+                        db.collection(firebase.auth().currentUser.email).doc(name).set({
+                            jsonImage: editableCanvas,
+                            imgURL: flatImg,
+                            index: name
+                        });
+                    });
                 }
 
             </script>

@@ -19,7 +19,7 @@
 	</head>
 
 	<body>
-		<canvas id="canvas" width="500" height="500"></canvas>
+		<canvas id="canvas" width="400" height="400"></canvas>
 		<br>
 		<input id='file' type="file"><br>
 		<input id='netImg' type='text'>
@@ -71,11 +71,11 @@
 				data = document.getElementById('netImg').value;
 				  fabric.Image.fromURL(data, function (img) {
 				    var oImg = img.set({left: 0, top: 0, angle: 0});
-				    oImg.scaleToHeight(500);
-				    oImg.scaleToWidth(500);
+				    oImg.scaleToHeight(400);
+				    oImg.scaleToWidth(400);
 				    if(oImg.height > canvas.height) {
 
-				    	let newHeight = (500*oImg.height)/oImg.width;
+				    	let newHeight = (400*oImg.height)/oImg.width;
 				    	canvas.setHeight(newHeight);
 				    	text2.top = newHeight*0.80;
 				    	canvas.add(text2);
@@ -144,8 +144,8 @@
 			});
 
 			var text1 = new fabric.Textbox("Text", {
-			  width: 500,
-			  fixedWidth: 500,
+			  width: 400,
+			  fixedWidth: 400,
 			  id: "cardalltexthex1",
 			  fontFamily: "Impact",
 			  fontSize: 40,
@@ -160,8 +160,8 @@
 			});
 
 			var text2 = new fabric.Textbox("Text", {
-			  width: 500,
-			  fixedWidth: 500,
+			  width: 400,
+			  fixedWidth: 400,
 			  id: "cardalltexthex2",
 			  fontFamily: "Impact",
 			  fontSize: 40,
@@ -186,11 +186,11 @@
 			    var data = f.target.result;                    
 			    fabric.Image.fromURL(data, function (img) {
 			      var oImg = img.set({left: 0, top: 0, angle: 0});
-			      oImg.scaleToHeight(500);
-			      oImg.scaleToWidth(500);
+			      oImg.scaleToHeight(400);
+			      oImg.scaleToWidth(400);
 			      if(oImg.height > canvas.height) {
 
-			      	let newHeight = (500*oImg.height)/oImg.width;
+			      	let newHeight = (400*oImg.height)/oImg.width;
 			      	canvas.setHeight(newHeight);
 			      	text2.top = newHeight*0.80;
 			      	canvas.add(text2);
