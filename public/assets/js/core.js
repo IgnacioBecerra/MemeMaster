@@ -10,6 +10,7 @@ var config = {
 var defaultApp = firebase.initializeApp(config);
 var db = firebase.firestore();
 
+
 /* Code for library.htmkl */
 if(document.body.id === 'library') {
 
@@ -420,4 +421,12 @@ if(document.body.id === 'createNew1') {
         });
 
         
+}
+
+
+// Edit: saves name to localStorage, and opens canvas edit
+function editPicture(name) {
+
+    localStorage.setItem('name', name);
+    window.location = './create_new.html'
 }
