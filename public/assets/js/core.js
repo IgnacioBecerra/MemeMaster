@@ -406,6 +406,10 @@ if(document.body.id === 'createNew1') {
                 tag: keyword
 	        });
 	    });
+        
+        setTimeout(function() {
+	    			window.location = './library.html';
+	    		}, 1000);
 	}
 	$("#advance").on("click", function() {
             var $bar = $(".ProgressBar");
