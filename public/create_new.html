@@ -35,14 +35,14 @@
         </nav>
         <div class="lineBreak"></div>
         <button id="goBack" onclick="history.back(-1)">Go Back</button>
-        
+
         <!--  cant use cuz it uses jquery
-        <div class="progressbar-container">
-            <ul class="progressbar">
-                <li class="active">Upload + Stylize</li>
-                <li>Finish</li>
-            </ul>
-        </div> -->
+<div class="progressbar-container">
+<ul class="progressbar">
+<li class="active">Upload + Stylize</li>
+<li>Finish</li>
+</ul>
+</div> -->
 
 
         <div class="outer-div">
@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="inputView">
-                                <h3>Step 1: Choose image to edit</h3>
+                    <h3>Step 1: Choose image to edit</h3>
                     <div class="inputPanel">
                         <!-- SELECT FILE -->
                         <input id='file' type="file"><br>
@@ -75,14 +75,14 @@
                         <button class="jscolor {valueElement: null, onFineChange:'changeColor(this, 2)'}" style="width:25px; height:25px;"></button>
 
                         <button class="jscolor {valueElement: null, value: '000000', onFineChange:'changeColor(this, 2.5)'}" style="width:25px; height:25px;"></button>	
-                        
-                                    <h3>Step 2: tag your meme with keyword</h3>
+
+                        <h3>Step 2: tag your meme with keyword</h3>
                     </div>
 
                     <div class="buttonPanel">
 
                         <button id='reset' onclick="canvasClear()">Reset Canvas</button>
-                        <button id="next" onclick="processImage()">Next</button>
+                        <button id="next" onclick="processImage()">Finish</button>
                     </div>
                     <div class="buttonPanel" id="downloadImageID">
                     </div>

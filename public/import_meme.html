@@ -3,15 +3,19 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Import a Meme</title>
+        <title>Import Your Meme</title>
         <base href = "./"> 
         <link rel="stylesheet" href="./assets/css/styles.css">
-        <link>
+        <script src="./assets/js/fabric.min.js"></script>
+        <script src="./assets/js/jscolor.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
         <style>
             .progressbar li {
                 width: calc(100%/2);
+            }
         </style>
-        }
 
     </head>
     <header class="header">
@@ -23,50 +27,64 @@
             <li><a href="./signup.html">Sign Up</a></li>
         </ul>
     </header>
-    <body>
+    <body id='createNew1'>
 
         <nav style="margin-top: 100px;">  
+
             <div class="library"><a href="">Import Meme</a></div>
         </nav>
         <div class="lineBreak"></div>
-        <div class="container">
-            <ul class="progressbar">
-                <li class="active">Upload</li>
-                <li>Finish</li>
-            </ul>
-        </div>
+        <button id="goBack" onclick="history.back(-1)">Go Back</button>
+
+        <!--  cant use cuz it uses jquery
+<div class="progressbar-container">
+<ul class="progressbar">
+<li class="active">Upload + Stylize</li>
+<li>Finish</li>
+</ul>
+</div> -->
 
 
         <div class="outer-div">
 
+            <div class="inner-div" >
+                <div class="canvasView">
+                    <canvas id="canvas" height="400" width="400"></canvas>
+                </div>
 
-            <div class="noMemeMessage">
-                <p>(canvas)
-                </p>
+                <div class="inputView">
+                    <h3>Step 1: upload an existing meme</h3>
+                    <div class="inputPanel">
+                        <!-- SELECT FILE -->
+                        <input id='file' type="file"><br>
+                        <input id='netImg' type='text'>
+                        <button id='netUpload'>URL</button>
+                        <br>
+                        <h3>Step 2: tag your meme with keyword</h3>
+                    </div>
 
+                    <div class="buttonPanel">
+
+                        <button id='reset' onclick="canvasClear()">Reset Canvas</button>
+                        <button id="next" onclick="processImage()">Finish</button>
+                    </div>
+                    <div class="buttonPanel" id="downloadImageID">
+                    </div>
+                </div>
             </div>
-        </div>
 
+            <br>
+
+        </div>
+        <script src='./assets/js/core.js'></script>
     </body>
 
-
-    <script>
-        $("#advance").on("click", function() {
-            var $bar = $(".ProgressBar");
-            if ($bar.children(".is-current").length > 0) {
-                $bar.children(".is-current").removeClass("is-current").addClass("is-complete").next().addClass("is-current");
-            } else {
-                $bar.children().first().addClass("is-current");
-            }
-        });
-
-        $("#previous").on("click", function() {
-            var $bar = $(".ProgressBar");
-            if ($bar.children(".is-current").length > 0) {
-                $bar.children(".is-current").removeClass("is-current").prev().removeClass("is-complete").addClass("is-current");
-            } else {
-                $bar.children(".is-complete").last().removeClass("is-complete").addClass("is-current");
-            }
-        });</script>
-
 </html>
+
+
+<style>
+    .progressbar li {
+        width: calc(100%/2);
+    }
+
+</style>
