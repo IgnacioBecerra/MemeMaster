@@ -27,7 +27,7 @@ if(document.body.id === 'library') {
 
     	firebase.auth().onAuthStateChanged(function(user) {
     	    if (user) {
-                var triangle = String.fromCharCode(9662);
+    	        var triangle = String.fromCharCode(9662);
     	        document.getElementById('profile').text = user.email + triangle;
     	        // ...
     	    } else {
@@ -182,24 +182,23 @@ if(document.body.id === 'createNew1') {
 	    	       canvas.renderAll(); 
 	    	    })
 	    	});
-	    }
+	    	document.getElementById('next').innerHTML = 'Save Edit';
+	    	document.getElementById('next').onclick = function () {
+	    		let editableCanvas = JSON.stringify(canvas);
+	    		let flatImg = canvas.toDataURL('image/png');
+	    		var name = localStorage.getItem('name');
 
-	    document.getElementById('next').innerHTML = 'Save Edit';
-	    document.getElementById('next').onclick = function () {
-	    	let editableCanvas = JSON.stringify(canvas);
-	    	let flatImg = canvas.toDataURL('image/png');
-	    	var name = localStorage.getItem('name');
-
-	    	db.collection(firebase.auth().currentUser.email).doc(name).set({
-	    	    jsonImage: editableCanvas,
-	    	    imgURL: flatImg,
-	    	    index: name
-	    	});
-	    	localStorage.clear();
-	    	console.log(localStorage);
-	    	setTimeout(function() {
-	    		window.location = './library.html';
-	    	}, 500);
+	    		db.collection(firebase.auth().currentUser.email).doc(name).set({
+	    		    jsonImage: editableCanvas,
+	    		    imgURL: flatImg,
+	    		    index: name
+	    		});
+	    		localStorage.clear();
+	    		console.log(localStorage);
+	    		setTimeout(function() {
+	    			window.location = './library.html';
+	    		}, 500);
+	    	}
 	    }
 	  } else {
 	    // User is signed out.
@@ -429,4 +428,11 @@ function editPicture(name) {
 
     localStorage.setItem('name', name);
     window.location = './create_new.html'
+}
+
+function deletePicture(name) {
+	db.collection(firebase.auth().currentUser.email).doc(name.toString()).delete();
+
+
+
 }
