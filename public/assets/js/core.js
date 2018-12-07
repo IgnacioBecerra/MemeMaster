@@ -187,11 +187,15 @@ if(document.body.id === 'createNew1') {
 	    		let editableCanvas = JSON.stringify(canvas);
 	    		let flatImg = canvas.toDataURL('image/png');
 	    		var name = localStorage.getItem('name');
+                var keyword = document.getElementById("keywordTag").value;
 
 	    		db.collection(firebase.auth().currentUser.email).doc(name).set({
 	    		    jsonImage: editableCanvas,
 	    		    imgURL: flatImg,
-	    		    index: name
+	    		    index: name,
+                    tag: keyword
+                    
+                    
 	    		});
 	    		localStorage.clear();
 	    		console.log(localStorage);
@@ -391,13 +395,15 @@ if(document.body.id === 'createNew1') {
 	    let editableCanvas = JSON.stringify(canvas);
 	    let flatImg = canvas.toDataURL('image/png');
 	    var name;
+        var keyword = document.getElementById("keywordTag").value;
 
 	    db.collection(firebase.auth().currentUser.email).get().then(snap => {
 	        name = snap.size.toString();
 	        db.collection(firebase.auth().currentUser.email).doc(name).set({
 	            jsonImage: editableCanvas,
 	            imgURL: flatImg,
-	            index: name
+	            index: name,
+                tag: keyword
 	        });
 	    });
 	}
