@@ -356,7 +356,7 @@ nav input {
 }
 
 .outer-div {
-    margin: 100px 0;
+    margin: 20px 0;
     padding: 30px;
     text-align: center;
 }
@@ -368,15 +368,48 @@ nav input {
     grid-gap: 10px;
 }
 
-.outer-div h2 {
+.outer-div h3 {
     text-align: left;
-    margin: 0 10% 2%;
+    margin: 0 0 2%;
     font-weight: 300;
 }
 
 .canvasView {
     position: relative;
     width: 100%;
+}
+
+@media screen and (max-width: 78em) {  
+    .inner-div {
+        display: grid;
+        grid-template-columns:  100%;
+        grid-gap: 10px;
+    }
+
+    .inputView {
+        background-color: antiquewhite;
+        text-align: justify;
+        width: 95%;
+    }
+
+    .inputPanel {
+        background-color:coral;
+        padding-bottom: 5px;
+        width: 100%;
+    }
+
+    .inputPanel input {
+        height: 16px;
+        margin: 8px 2px;
+    }
+    
+    .buttonPanel #next {
+        float: right;
+    font-size: 1.2em;
+    padding: 10px 10px;
+    margin: 8px 2px;
+}
+    
 }
 
 #canvas {
@@ -389,30 +422,53 @@ nav input {
 .inputView {
     background-color: antiquewhite;
     text-align: justify;
-
 }
 
 .inputPanel {
     background-color:coral;
-    padding-bottom: 10px;;
+    padding-bottom: 10px;
+}
 
+.inputPanel input {
+    width: 35%;
+    height: 16px;
+    margin: 8px 2px;
 }
 
 .inputPanel button {
     border: 1px solid GRAY;
 }
 
+#netUpload {
+    font-size: 1.0em;
+    padding: 0 10px;
+    margin: 8px 2px;
+    border: none;
+}
+
+#goBack {
+    font-size: 1.2em;
+    padding: 10px 10px;
+    margin: 8px 2px;
+    border: none;
+    margin: 0 12%;
+}
+
 .buttonPanel {
     background-color:deepskyblue;
-
 }
 
 .buttonPanel #reset {
+    font-size: 1.2em;
+    padding: 10px 10px;
+    margin: 8px 2px;
 
 }
 
 .buttonPanel #next {
-
+    font-size: 1.2em;
+    padding: 10px 10px;
+    margin: 8px 2px;
 }
 
 #downloadImage {
@@ -508,7 +564,6 @@ nav input {
 .memeBox .memePic {
     width: 100%;
 }
-
 
 
 .outer-div .meme-grid .imageBox {

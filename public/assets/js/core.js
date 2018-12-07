@@ -302,7 +302,7 @@ if(document.body.id === 'createNew1') {
 	    console.log(link.href);
 	    link.download = "mypainting.png";
 	}, false);
-	document.body.appendChild(link);
+	document.getElementById("downloadImageID").appendChild(link);
 
 	var but = document.createElement('button');
 	but.innerHTML = "Download Image";
