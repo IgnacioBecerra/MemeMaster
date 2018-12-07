@@ -137,12 +137,27 @@ if(document.body.id === 'createNew1') {
 	  if (user) {
 	    if(localStorage.getItem('name')) {
 	    	let name = localStorage.getItem('name');
-	    	console.log(name);
+
+	    	// Load image that needs to be edited
 	    	db.collection(firebase.auth().currentUser.email).doc(name.toString()).get().then(function(doc) {
-	    	    //document.write('<img src="'+doc.data().imgURL+'"/>');
+	    		canvas.clear();
+
+	    		// load cnavas from json
 	    	    canvas.loadFromJSON(doc.data().jsonImage, function() {
+	    	    	let box = 1;
+
 	    	    	canvas.forEachObject(function(obj){
+
+	    	    		// load image and set previous properties
 	    	    		if(obj.type === 'image') {
+	    	    			obj.scaleToHeight(400);
+	    	    			obj.scaleToWidth(400);
+	    	    			if(obj.height > canvas.height) {
+
+	    	    			    let newHeight = (400*obj.height)/obj.width;
+	    	    			    canvas.setHeight(newHeight);
+	    	    			    text2.top = newHeight*0.80;
+	    	    			}
 	    	    			obj.lockMovementX = true;
 	    	    			obj.lockMovementY = true;
 	    	    			obj.lockScalingX = true;
@@ -151,12 +166,38 @@ if(document.body.id === 'createNew1') {
 	    	    			obj.selectable = false;
 	    	    			canvas.hoverCursor = 'defaultCursor'
 
+	    	    			// link text boxes 1 and 2 to input boxes
+	    	    		} else if(obj.type === 'textbox' && box === 1) {
+	    	    			text1 = obj;
+	    	    			document.getElementById('cardalltexthex1').value = obj.text;
+	    	    			document.getElementById('cardalltexthex1').setAttribute('data-text', obj.text);
+	    	    			box++;
+	    	    		} else if(obj.type === 'textbox' && box === 2) {
+	    	    			document.getElementById('cardalltexthex2').value = obj.text;
+	    	    			document.getElementById('cardalltexthex2').setAttribute('data-text', obj.text);
 	    	    		}
-	    	    	    console.log(obj);
 	    	    	});
 	    	       canvas.renderAll(); 
 	    	    })
 	    	});
+	    }
+
+	    document.getElementById('next').innerHTML = 'Save Edit';
+	    document.getElementById('next').onclick = function () {
+	    	let editableCanvas = JSON.stringify(canvas);
+	    	let flatImg = canvas.toDataURL('image/png');
+	    	var name = localStorage.getItem('name');
+
+	    	db.collection(firebase.auth().currentUser.email).doc(name).set({
+	    	    jsonImage: editableCanvas,
+	    	    imgURL: flatImg,
+	    	    index: name
+	    	});
+	    	localStorage.clear();
+	    	console.log(localStorage);
+	    	setTimeout(function() {
+	    		window.location = './library.html';
+	    	}, 500);
 	    }
 	  } else {
 	    // User is signed out.
