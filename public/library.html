@@ -26,9 +26,10 @@
                         <a id='profile' href="./profile.html" class="dropbtn"></a> 
                         <div class="dropdown-content">
                             <a href="./profile.html">user profile</a>
-                            <a href="#">log out</a>
+                            <a onclick='logOut()'>log out</a>
                         </div>
                     </div> 
+                </li>
             </ul>
         </div>
     </header>
@@ -66,7 +67,7 @@
                 </div>
 
     <div class="descriptionBox">
-        <p class="descriptionText" id="keyword"> Tags:{{tag}}</p>
+        <p class="descriptionText" id="keyword"> Tags: {{tag}}</p>
         <form class="memeControlPanel">
             <img class="memeControl" id="deleteButton" src="./assets/img/delete.png" alt="delte">
             <img class="memeControl" id="editButton" onclick='editPicture({{index}})' src="./assets/img/edit.png" alt="edit">

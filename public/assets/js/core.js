@@ -10,6 +10,15 @@ var config = {
 var defaultApp = firebase.initializeApp(config);
 var db = firebase.firestore();
 
+function logOut() {
+	firebase.auth().signOut().then(function() {
+	  console.log("logged out");
+	  window.location = './index.html';
+	}, function(error) {
+	  // An error happened.
+	});
+}
+
 
 /* Code for library.htmkl */
 if(document.body.id === 'library') {
@@ -18,11 +27,7 @@ if(document.body.id === 'library') {
     window.onload = function() {
 
     	 /* LOGOUT FUNCTION
-            firebase.auth().signOut().then(function() {
-              // Sign-out successful.
-            }, function(error) {
-              // An error happened.
-            });
+            
             */
 
     	firebase.auth().onAuthStateChanged(function(user) {
@@ -133,10 +138,11 @@ if(document.body.id === 'login') {
 
 if(document.body.id === 'createNew1') {
 
-
 	/* Load if localStorage has something saved from earlier */
 	firebase.auth().onAuthStateChanged(function(user) {
 	  if (user) {
+	  	var triangle = String.fromCharCode(9662);
+	  	document.getElementById('profile').text = user.email + triangle;
 	    if(localStorage.getItem('name')) {
 	    	let name = localStorage.getItem('name');
 
@@ -387,6 +393,17 @@ if(document.body.id === 'createNew1') {
 	document.getElementById('link').appendChild(but)
 
 	function processImage() {
+
+		if(document.getElementById('file').value === "") {
+			alert("Please add a picture.");
+			return;
+		}
+
+		if(document.getElementById('keywordTag').value === "") {
+			alert("Please add a keyword.");
+			return;
+		}
+
 	    canvas.forEachObject(function(obj){
 	        obj.sourcePath = '/URL/FILE.svg';
 	        console.log(obj.sourcePath)
