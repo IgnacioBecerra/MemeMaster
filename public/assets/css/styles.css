@@ -607,8 +607,8 @@ nav input {
 
 .outer-div .meme-grid .memeBox {
     margin: auto;
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
     border: solid 1px #979797;
     background-color: #ffffff;
 }
@@ -633,12 +633,12 @@ nav input {
     height: 40%;
     border: solid 1px #979797;
     background-color: #ffffff;
+    font-size: 0.8em;
 }
 
 .memeControlPanel {
     float: right;
-    padding: 0 4px;
-
+    padding: 0 8%;
 }
 
 .memeControl {
