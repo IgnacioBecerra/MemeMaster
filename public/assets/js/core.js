@@ -131,7 +131,40 @@ if(document.body.id === 'login') {
 
 if(document.body.id === 'createNew1') {
 
-	console.log('asdsa');
+
+	/* Load if localStorage has something saved from earlier */
+	firebase.auth().onAuthStateChanged(function(user) {
+	  if (user) {
+	    if(localStorage.getItem('name')) {
+	    	let name = localStorage.getItem('name');
+	    	console.log(name);
+	    	db.collection(firebase.auth().currentUser.email).doc(name.toString()).get().then(function(doc) {
+	    	    //document.write('<img src="'+doc.data().imgURL+'"/>');
+	    	    canvas.loadFromJSON(doc.data().jsonImage, function() {
+	    	    	canvas.forEachObject(function(obj){
+	    	    		if(obj.type === 'image') {
+	    	    			obj.lockMovementX = true;
+	    	    			obj.lockMovementY = true;
+	    	    			obj.lockScalingX = true;
+	    	    			obj.lockScalingY = true;
+	    	    			obj.lockRotation = true;
+	    	    			obj.selectable = false;
+	    	    			canvas.hoverCursor = 'defaultCursor'
+
+	    	    		}
+	    	    	    console.log(obj);
+	    	    	});
+	    	       canvas.renderAll(); 
+	    	    })
+	    	});
+	    }
+	  } else {
+	    // User is signed out.
+	    // ...
+	  }
+	});
+
+	
 	document.getElementById('netUpload').addEventListener('click', function(e) {
 
 	    
@@ -146,7 +179,6 @@ if(document.body.id === 'createNew1') {
 	            let newHeight = (500*oImg.height)/oImg.width;
 	            canvas.setHeight(newHeight);
 	            text2.top = newHeight*0.80;
-	            canvas.add(text2);
 	        }
 	        oImg.lockMovementX = true;
 	        oImg.lockMovementY = true;
@@ -344,4 +376,6 @@ if(document.body.id === 'createNew1') {
                 $bar.children(".is-complete").last().removeClass("is-complete").addClass("is-current");
             }
         });
+
+        
 }

@@ -62,11 +62,11 @@
                     <div class="descriptionBox">
                         <p class="descriptionText" id="keywords">Keywords: placeholder</p>
                         
-                        <div class="memeControlPanel">
+                        <form class="memeControlPanel">
                             <img class="memeControl" id="deleteButton" src="./assets/img/delete.png" alt="delte">
-                            <img class="memeControl" id="editButton" src="./assets/img/edit.png" alt="edit">
+                            <img class="memeControl" id="editButton" onclick='editPicture({{index}})'' src="./assets/img/edit.png" alt="edit">
                             <img class="memeControl" id="shareButton" src="./assets/img/share.png" alt="share">
-                        </div>
+                        </form>
                     </div>
                 </div>
              </script>
@@ -82,6 +82,15 @@
             </div>
 
         </div>
+
+        <script type="text/javascript">
+            function editPicture(name) {
+
+                localStorage.setItem('name', name);
+                console.log(localStorage);
+                window.location = './create_new.html'
+        }
+        </script>
 
         <!-- Main js file; added at the end so all elements render beforehand -->
         <script src='./assets/js/core.js'></script>
