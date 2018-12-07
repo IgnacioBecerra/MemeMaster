@@ -409,7 +409,7 @@ if(document.body.id === 'createNew1') {
         
         setTimeout(function() {
 	    			window.location = './library.html';
-	    		}, 1000);
+	    		}, 4000);
 	}
 	$("#advance").on("click", function() {
             var $bar = $(".ProgressBar");
