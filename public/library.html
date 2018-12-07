@@ -9,19 +9,10 @@
         <link>
         <!-- Firebase code -->
         <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
-        <script>
-            // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
-                authDomain: "mememaster-9b27a.firebaseapp.com",
-                databaseURL: "https://mememaster-9b27a.firebaseio.com",
-                projectId: "mememaster-9b27a",
-                storageBucket: "mememaster-9b27a.appspot.com",
-                messagingSenderId: "825635617975"
-            };
-            var defaultApp = firebase.initializeApp(config);
-            var db = firebase.firestore();
-        </script>
+
+        <!-- Handlebars code -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
+
     </head>
 
     <header class="header">
@@ -35,7 +26,7 @@
             </ul>
         </div>
     </header>
-    <body>
+    <body id='library'>
 
         <nav style="margin-top: 100px;">  
             <li class="library"><a href="">Your Library</a></li>
@@ -59,7 +50,7 @@
 
 
             
-
+            <!-- Needs to be placed inside the html file in order to work -->
              <script id="results-template" type="text/x-handlebars-template">
                 <!-- meme 0 -->
                 <div class="memeBox" id="memeBox{{index}}">
@@ -84,46 +75,7 @@
             <div class="meme-grid">
             </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
-
-            <!-- Fill template -->
-        <script>
-            window.onload = function() {
-
-                var source = document.getElementById("results-template").innerHTML;
-                var template = Handlebars.compile(source);
-                console.log(template);
-
-                var parentDiv = document.getElementsByClassName('meme-grid')[0];
-
-              firebase.auth().onAuthStateChanged(user => {
-                  if(user) {
-                    console.log("logged in");
-
-                    var name = '';
-
-                    db.collection(firebase.auth().currentUser.email).get().then(snap => {
-                        name = snap.size.toString();
-
-                        for(var i = 0; i < name; i++) {
-                            db.collection(firebase.auth().currentUser.email).doc(i.toString()).get().then(function(doc) {
-                                var curHtml = template(doc.data());
-                                
-                                let box = document.createElement('div');
-                                box.innerHTML = curHtml;
-                                parentDiv.append(box);
-
-                            });
-                        }
-                    });
-                  }
-                });
-            };
-        </script>
-        
-
-
-            <div class="noMemeMessage">
+            <div class="noMemeMessage" id='nomemes' style="display: none;">
                 <p>Oh no! You have no saved memes yet!    D:
                 </p>
 
@@ -131,23 +83,7 @@
 
         </div>
 
-        <script>
-
-            /* LOGOUT FUNCTION
-            firebase.auth().signOut().then(function() {
-              // Sign-out successful.
-            }, function(error) {
-              // An error happened.
-            });
-            */
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    document.getElementById('profile').text = user.email;
-                    // ...
-                } else {
-                    window.location = './signup.html';
-                }
-            });
-        </script>
+        <!-- Main js file; added at the end so all elements render beforehand -->
+        <script src='./assets/js/core.js'></script>
     </body>
 </html>

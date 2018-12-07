@@ -10,19 +10,7 @@
 
         <!-- Firebase code -->
         <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
-        <script>
-          // Initialize Firebase
-          var config = {
-            apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
-            authDomain: "mememaster-9b27a.firebaseapp.com",
-            databaseURL: "https://mememaster-9b27a.firebaseio.com",
-            projectId: "mememaster-9b27a",
-            storageBucket: "mememaster-9b27a.appspot.com",
-            messagingSenderId: "825635617975"
-          };
-          var defaultApp = firebase.initializeApp(config);
-          var db = firebase.firestore();
-        </script>
+        
     </head>
     <header class="header">
         <a href="./index.html" class="logo">Meme Generator</a>
@@ -33,7 +21,7 @@
             <li><a  class="active" href="./signup.html">Sign Up</a></li>
         </ul>
     </header>
-    <body>
+    <body id='signup'>
         <div class="user-form" id="singupform">
             <div class="container">
                 <h1>Sign Up</h1>
@@ -52,43 +40,6 @@
                 <button class="signUpbtn" type="submit" onclick="addUser()">Sign Up</button>
             </div>
         </div>
+        <script src='./assets/js/core.js'></script>
     </body>
-    
-    <!-- CONFIRM PASSWORD S-->
-    <script>
-
-        function addUser() {
-            
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var confirm_password = document.getElementById("confirm_password").value;
-
-            if(password != confirm_password) {
-                alert("Passwords Don't Match");
-                return;
-            } 
-            
-        
-            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                if (errorCode == 'auth/weak-password') {
-                  alert('The password is too weak.');
-                } else {
-                  alert(errorMessage);
-                }
-                console.log(error);
-
-            });
-
-            firebase.auth().onAuthStateChanged(user => {
-              if(user) {
-                window.location = './library.html'; //After successful login, user will be redirected to home.html
-              }
-            });
-        }
-
-
-    </script>
-
 </html>

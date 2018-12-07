@@ -8,19 +8,7 @@
         <link rel="stylesheet" href="./assets/css/styles.css">
         <!-- Firebase code -->
         <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
-        <script>
-          // Initialize Firebase
-          var config = {
-            apiKey: "AIzaSyA4B8e1CETSVPZY2v9_lmdfDK7pXq8NbOw",
-            authDomain: "mememaster-9b27a.firebaseapp.com",
-            databaseURL: "https://mememaster-9b27a.firebaseio.com",
-            projectId: "mememaster-9b27a",
-            storageBucket: "mememaster-9b27a.appspot.com",
-            messagingSenderId: "825635617975"
-          };
-          var defaultApp = firebase.initializeApp(config);
-          var db = firebase.firestore();
-        </script>
+        
     </head>
 
     <header class="header">
@@ -33,7 +21,7 @@
         </ul>
     </header>
 
-    <body>
+    <body id='login'>
 
         <div class="user-form" id="loginform" >
             <div class="container">
@@ -56,30 +44,6 @@
                 <br>
             </div>
         </div>
-
-        <script>
-            function login() {
-                var email = document.getElementById('email').value;
-                var password = document.getElementById('password').value;
-
-                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-                  // Handle Errors here.
-                  var errorCode = error.code;
-                  var errorMessage = error.message;
-                  // ...
-                });
-
-                firebase.auth().onAuthStateChanged(function(user) {
-                  if (user) {
-                    console.log("signed in");
-                    window.location = './library.html'
-                    // ...
-                  } else {
-                    // User is signed out.
-                    // ...
-                  }
-                });
-            }
-        </script>
+        <script src='./assets/js/core.js'></script>
     </body>
 </html>
