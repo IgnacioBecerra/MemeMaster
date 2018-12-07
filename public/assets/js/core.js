@@ -26,7 +26,8 @@ if(document.body.id === 'library') {
 
     	firebase.auth().onAuthStateChanged(function(user) {
     	    if (user) {
-    	        document.getElementById('profile').text = user.email;
+                var triangle = String.fromCharCode(9662);
+    	        document.getElementById('profile').text = user.email + triangle;
     	        // ...
     	    } else {
     	        window.location = './signup.html';
