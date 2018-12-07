@@ -49,28 +49,28 @@
         <div class="outer-div">
 
 
-            
-            <!-- Needs to be placed inside the html file in order to work -->
-             <script id="results-template" type="text/x-handlebars-template">
-                <!-- meme 0 -->
-                <div class="memeBox" id="memeBox{{index}}">
-                    <!-- Image square -->
-                    <div class="imageBox">
-                        <img src="{{{imgURL}}}" class="memePic">
-                    </div>
 
-                    <div class="descriptionBox">
-                        <p class="descriptionText" id="keywords">Keywords: placeholder</p>
-                        
-                        <form class="memeControlPanel">
-                            <img class="memeControl" id="deleteButton" src="./assets/img/delete.png" alt="delte">
-                            <img class="memeControl" id="editButton" onclick='editPicture({{index}})'' src="./assets/img/edit.png" alt="edit">
-                            <img class="memeControl" id="shareButton" src="./assets/img/share.png" alt="share">
-                        </form>
-                    </div>
+            <!-- Needs to be placed inside the html file in order to work -->
+            <script id="results-template" type="text/x-handlebars-template">
+<!-- meme 0 -->
+<div class="memeBox" id="memeBox{{index}}">
+    <!-- Image square -->
+    <div class="imageBox">
+        <img src="{{{imgURL}}}" class="memePic">
                 </div>
-             </script>
-            
+
+    <div class="descriptionBox">
+        <p class="descriptionText" id="keywords">Keywords: placeholder</p>
+
+        <form class="memeControlPanel">
+            <img class="memeControl" id="deleteButton" src="./assets/img/delete.png" alt="delte">;
+            <img class="memeControl" id="editButton" onclick='editPicture({{index}})' src="./assets/img/edit.png" alt="edit">;
+            <ahref="http://twitter.com/share?url=[url]&via=trucsweb&image-src=[img]&text=[title]"><img class="memeControl" id="shareButton" src="./assets/img/share.png" alt="share"></ahref>;
+                </form>
+                </div>
+                </div>
+            </script>
+
 
             <div class="meme-grid">
             </div>
@@ -82,6 +82,8 @@
             </div>
 
         </div>
+        
+
 
         <script type="text/javascript">
             function editPicture(name) {
@@ -89,7 +91,7 @@
                 localStorage.setItem('name', name);
                 console.log(localStorage);
                 window.location = './create_new.html'
-        }
+            }
         </script>
 
         <!-- Main js file; added at the end so all elements render beforehand -->
