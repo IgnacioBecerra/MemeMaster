@@ -44,16 +44,9 @@
         <div class="lineBreak"></div>
         <button id="goBack" onclick="history.back(-1)">Go Back</button>
 
-        <!--  cant use cuz it uses jquery
-<div class="progressbar-container">
-<ul class="progressbar">
-<li class="active">Upload + Stylize</li>
-<li>Finish</li>
-</ul>
-</div> -->
-
 
         <div class="outer-div">
+            <p hidden id='editCheck'>false</p>
 
             <div class="inner-div" >
                 <div class="canvasView">
@@ -92,7 +85,7 @@
                     <div class="buttonPanel">
 
                         <button id='reset' onclick="canvasClear()">Reset Canvas</button>
-                        <button id="next" onclick="processImage()">Finish</button>
+                        <button id="next" onclick="processImage()">Save</button>
                         <div class="buttonPanel" id="downloadImageID">
                         </div>
                     </div>

@@ -60,17 +60,15 @@ if(document.body.id === 'library') {
                 	document.getElementById('nomemes').style.display= '';
                 }
 
-                // loop through each doc and display all memes
-                for(var i = 0; i < name; i++) {
-                    db.collection(firebase.auth().currentUser.email).doc(i.toString()).get().then(function(doc) {
+                db.collection(firebase.auth().currentUser.email).get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
                         var curHtml = template(doc.data());
                         
                         let box = document.createElement('div');
                         box.innerHTML = curHtml;
                         parentDiv.append(box);
-
                     });
-                }
+                });
             });
           }
         });
@@ -143,6 +141,9 @@ if(document.body.id === 'createNew1') {
 	  if (user) {
 	  	var triangle = String.fromCharCode(9662);
 	  	document.getElementById('profile').text = user.email + triangle;
+
+
+	  	// load image from library to canvas
 	    if(localStorage.getItem('name')) {
 	    	let name = localStorage.getItem('name');
 
@@ -172,7 +173,7 @@ if(document.body.id === 'createNew1') {
 	    	    			obj.lockScalingY = true;
 	    	    			obj.lockRotation = true;
 	    	    			obj.selectable = false;
-	    	    			canvas.hoverCursor = 'defaultCursor'
+	    	    			canvas.hoverCursor = 'defaultCursor';
 
 	    	    			// link text boxes 1 and 2 to input boxes
 	    	    		} else if(obj.type === 'textbox' && box === 1) {
@@ -185,30 +186,16 @@ if(document.body.id === 'createNew1') {
 	    	    			document.getElementById('cardalltexthex2').setAttribute('data-text', obj.text);
 	    	    		}
 	    	    	});
-	    	       canvas.renderAll(); 
+	    	       canvas.renderAll();
 	    	    })
-	    	});
-	    	document.getElementById('next').innerHTML = 'Save Edit';
-	    	document.getElementById('next').onclick = function () {
-	    		let editableCanvas = JSON.stringify(canvas);
-	    		let flatImg = canvas.toDataURL('image/png');
-	    		var name = localStorage.getItem('name');
-                var keyword = document.getElementById("keywordTag").value;
 
-	    		db.collection(firebase.auth().currentUser.email).doc(name).set({
-	    		    jsonImage: editableCanvas,
-	    		    imgURL: flatImg,
-	    		    index: name,
-                    tag: keyword
-                    
-                    
-	    		});
-	    		localStorage.clear();
-	    		console.log(localStorage);
-	    		setTimeout(function() {
-	    			window.location = './library.html';
-	    		}, 500);
-	    	}
+	    	    document.getElementById('keywordTag').value = doc.data().tag;
+	    	    document.getElementById('editCheck').innerHTML = name.toString();
+	    	});
+
+	    } else {
+	    	document.getElementById('editCheck').innerHTML = 'false';
+	    	canvasClear();
 	    }
 	  } else {
 	    // User is signed out.
@@ -224,11 +211,11 @@ if(document.body.id === 'createNew1') {
 	    data = document.getElementById('netImg').value;
 	    fabric.Image.fromURL(data, function (img) {
 	        var oImg = img.set({left: 0, top: 0, angle: 0});
-	        oImg.scaleToHeight(500);
-	        oImg.scaleToWidth(500);
+	        oImg.scaleToHeight(400);
+	        oImg.scaleToWidth(400);
 	        if(oImg.height > canvas.height) {
 
-	            let newHeight = (500*oImg.height)/oImg.width;
+	            let newHeight = (400*oImg.height)/oImg.width;
 	            canvas.setHeight(newHeight);
 	            text2.top = newHeight*0.80;
 	        }
@@ -278,14 +265,13 @@ if(document.body.id === 'createNew1') {
 	    document.getElementById("file").value = null;
 	    document.getElementById('cardalltexthex1').value = 'text1';
 	    document.getElementById('cardalltexthex2').value = 'text2';
+	     document.getElementById('keywordTag').value = '';
 
 	    document.getElementById('cardalltexthex1').setAttribute('data-text', 'TEXT1');
 	    document.getElementById('cardalltexthex2').setAttribute('data-text', 'TEXT2');
 
 	    text1.text = 'TEXT1';
 	    text2.text = 'TEXT2';
-
-	    console.log(document.getElementById('cardalltexthex2').outerHTML);
 	}
 
 	var canvas = new fabric.Canvas('canvas');
@@ -394,9 +380,41 @@ if(document.body.id === 'createNew1') {
 
 	function processImage() {
 
-		if(document.getElementById('file').value === "") {
-			alert("Please add a picture.");
-			return;
+		if(document.getElementById('editCheck').innerHTML != 'false') {
+
+			let editableCanvas = JSON.stringify(canvas);
+	    	let flatImg = canvas.toDataURL('image/png');
+	    	var keyword = document.getElementById("keywordTag").value;
+			var n = document.getElementById('editCheck').innerHTML;
+
+
+			db.collection(firebase.auth().currentUser.email).get().then(snap => {
+		        db.collection(firebase.auth().currentUser.email).doc(n).set({
+		            jsonImage: editableCanvas,
+		            imgURL: flatImg,
+		            index: n,
+	                tag: keyword
+		        });
+	    	});
+	    	localStorage.clear();
+        
+       		setTimeout(function() {
+	    		window.location = './library.html';
+	    	}, 4000);
+	    	return;
+		}
+
+	    var blank = document.createElement('canvas');
+	    blank.width = canvas.width;
+	    blank.height = canvas.height;
+
+	    // if canvas is empty
+		if(canvas.toDataURL() == blank.toDataURL()) {
+
+			if(document.getElementById('file').value === "") {
+				alert("Please add a picture.");
+				return;
+			}
 		}
 
 		if(document.getElementById('keywordTag').value === "") {
@@ -423,30 +441,13 @@ if(document.body.id === 'createNew1') {
                 tag: keyword
 	        });
 	    });
+
+	    localStorage.clear();
         
         setTimeout(function() {
 	    			window.location = './library.html';
 	    		}, 4000);
-	}
-	$("#advance").on("click", function() {
-            var $bar = $(".ProgressBar");
-            if ($bar.children(".is-current").length > 0) {
-                $bar.children(".is-current").removeClass("is-current").addClass("is-complete").next().addClass("is-current");
-            } else {
-                $bar.children().first().addClass("is-current");
-            }
-        });
-
-        $("#previous").on("click", function() {
-            var $bar = $(".ProgressBar");
-            if ($bar.children(".is-current").length > 0) {
-                $bar.children(".is-current").removeClass("is-current").prev().removeClass("is-complete").addClass("is-current");
-            } else {
-                $bar.children(".is-complete").last().removeClass("is-complete").addClass("is-current");
-            }
-        });
-
-        
+	}   
 }
 
 
@@ -457,9 +458,14 @@ function editPicture(name) {
     window.location = './create_new.html'
 }
 
+
 function deletePicture(name) {
+	var c = confirm("Would you like to delete this meme?");
+
+	if(c === false) {
+		return;
+	}
+
 	db.collection(firebase.auth().currentUser.email).doc(name.toString()).delete();
-
-
-
+	document.getElementById('memeBox'+ name.toString()).outerHTML = '';
 }
