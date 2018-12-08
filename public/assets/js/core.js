@@ -216,36 +216,6 @@ if(document.body.id === 'createNew1') {
 	  }
 	});
 
-	
-	document.getElementById('netUpload').addEventListener('click', function(e) {
-
-	    
-
-	    data = document.getElementById('netImg').value;
-	    fabric.Image.fromURL(data, function (img) {
-	        var oImg = img.set({left: 0, top: 0, angle: 0});
-	        oImg.scaleToHeight(400);
-	        oImg.scaleToWidth(400);
-	        if(oImg.height > canvas.height) {
-
-	            let newHeight = (400*oImg.height)/oImg.width;
-	            canvas.setHeight(newHeight);
-	            text2.top = newHeight*0.80;
-	        }
-	        oImg.lockMovementX = true;
-	        oImg.lockMovementY = true;
-	        oImg.lockScalingX = true;
-	        oImg.lockScalingY = true;
-	        oImg.lockRotation = true;
-	        oImg.selectable = false;
-	        canvas.hoverCursor = 'defaultCursor'
-	        canvas.add(oImg).sendToBack(oImg).renderAll();
-	    });
-
-	    canvas.add(text1);
-	    canvas.add(text2);
-	    canvas.renderAll();
-	});
 
 	function changeColor(e, id) {
 	    let col = '#' + e;
@@ -545,31 +515,7 @@ if(document.body.id === 'importMeme') {
 	    o.selectable = false;
 	});
 
-	document.getElementById('netUpload').addEventListener('click', function(e) {
 
-		    console.log('asdasd');
-
-		    data = document.getElementById('netImg').value;
-		    fabric.Image.fromURL(data, function (img) {
-		        var oImg = img.set({left: 0, top: 0, angle: 0});
-		        oImg.scaleToHeight(400);
-		        oImg.scaleToWidth(400);
-		        if(oImg.height > canvas.height) {
-
-		            let newHeight = (400*oImg.height)/oImg.width;
-		            canvas.setHeight(newHeight);
-		        }
-		        oImg.lockMovementX = true;
-		        oImg.lockMovementY = true;
-		        oImg.lockScalingX = true;
-		        oImg.lockScalingY = true;
-		        oImg.lockRotation = true;
-		        oImg.selectable = false;
-		        canvas.hoverCursor = 'defaultCursor'
-		        canvas.add(oImg).sendToBack(oImg).renderAll();
-		    });
-		    canvas.renderAll();
-		});
 
 	document.getElementById('file').addEventListener("change", function (e) {
 	    canvas.clear();
