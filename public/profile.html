@@ -38,9 +38,9 @@
             <br/>
             <label for="password">Password: </label>
 
-            <span id="password">Password</span>
+            <span id="password">nothing to see here...D:</span>
             <br/>
-            
+
             <div id="reauthenticateForm" style="display:none">
                 <input type="password" placeholder="Re-enter Current Password" id="oldPassword"/>
                 <br/>
@@ -79,6 +79,7 @@
 
         document.getElementById("passOne").value = "";
         document.getElementById("passTwo").value = "";
+        location.reload();
 
     };
 
@@ -102,7 +103,7 @@
         var message = document.createElement('p');
         message.id = 'messageText';
         document.getElementById("profile-area").appendChild(message);
-        document.getElementById("messageText").innerHTML = "match!";
+        //document.getElementById("messageText").innerHTML = "match!";
 
         if(passOne.toString() ==="" && passTwo.toString() === ""){
             document.getElementById("messageText").innerHTML = "please enter and confirm your new password";
@@ -140,13 +141,16 @@
                         }
                                 )}).catch(function(error) {
                         // An error happened.
+                        document.getElementById("cancelUpdate").style.display = "";
+                        document.getElementById("messageText").innerHTML = "password incorrect";
                     });
 
                 } });
         } else {
             if(passOne.toString() !== passTwo.toString()){
-                document.getElementById("messageText").innerHTML = "DONT match!";
+                document.getElementById("messageText").innerHTML = "failed to confirm new password";
                 document.getElementById("profile-area").appendChild(message);
+                document.getElementById("cancelUpdate").style.display = "";
             } 
         }   
     };
