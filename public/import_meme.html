@@ -23,8 +23,16 @@
         <input class="menu-btn" type="checkbox" id="menu-btn" />
         <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
         <ul class="menu">
-            <li><a href="./login.html">Log In</a></li>
-            <li><a href="./signup.html">Sign Up</a></li>
+            <li><a href="./library.html">Library</a></li>
+            <li>                
+                <div class="dropdown">
+                    <a id='profile' href="./profile.html" class="dropbtn"></a> 
+                    <div class="dropdown-content">
+                        <a href="./profile.html">user profile</a>
+                        <a onclick='logOut()'>log out</a>
+                    </div>
+                </div> 
+            </li>
         </ul>
     </header>
     <body id='createNew1'>

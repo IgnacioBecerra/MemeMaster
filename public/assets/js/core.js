@@ -9,6 +9,8 @@ var config = {
 };
 var defaultApp = firebase.initializeApp(config);
 const firestore = firebase.firestore();
+var storage = firebase.storage();
+var storageRef = storage.ref();
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 firestore.settings(settings);
 var db = firebase.firestore();
@@ -443,13 +445,18 @@ if(document.body.id === 'createNew1') {
 	            index: name,
                 tag: keyword
 	        });
+
+	        storageRef.putString(flatImg, 'data_url').then(function(snapshot) {
+	          console.log('Uploaded a data_url string!');
+	        });
 	    });
 
 	    localStorage.clear();
         
+        /*
         setTimeout(function() {
 	    			window.location = './library.html';
-	    		}, 4000);
+	    		}, 4000);*/
 	}   
 }
 
@@ -471,4 +478,21 @@ function deletePicture(name) {
 
 	db.collection(firebase.auth().currentUser.email).doc(name.toString()).delete();
 	document.getElementById('memeBox'+ name.toString()).outerHTML = '';
+	window.location = './library.html';
+}
+
+function convertURIToImageData(URI) {
+  return new Promise(function(resolve, reject) {
+    if (URI == null) return reject();
+    var canvas = document.createElement('canvas'),
+        context = canvas.getContext('2d'),
+        image = new Image();
+    image.addEventListener('load', function() {
+      canvas.width = image.width;
+      canvas.height = image.height;
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      resolve(context.getImageData(0, 0, canvas.width, canvas.height));
+    }, false);
+    image.src = URI;
+  });
 }
