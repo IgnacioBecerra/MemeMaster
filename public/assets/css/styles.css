@@ -355,11 +355,11 @@ nav input {
     font-size: 1.2em;
     height: 38px;
     width: 20em;
-        flex-grow:1.5;
+    flex-grow:1.5;
 }
 
 .searchForm a{
-     width: 7em;
+    width: 7em;
     background-color: #E19C9C;
     border: 1px solid #E19C9C;
     color: WHITE;
@@ -543,8 +543,6 @@ nav input {
 
 }
 
-
-
 /* NO MEME WARNING IF LIBRARY EMPTY */
 .noMemeMessage {
     display: inline-block;
@@ -625,7 +623,7 @@ nav input {
     margin: auto;
     width: 90%;
     height: 90%;
-    border: solid 1px #979797;
+    //border: solid 1px #979797;
     background-color: #ffffff;
 }
 
@@ -647,18 +645,19 @@ nav input {
     margin: 2% auto;
     width: 90%;
     height: 40%;
-    border: solid 1px #979797;
+    //border: solid 1px #979797;
     background-color: #ffffff;
+    font-size: 24px;
 }
 
 .memeControlPanel {
-    float: right;
-    padding: 0 4px;
-
+    float:right;
 }
 
 .memeControl {
-    width: 16px;
+    min-width: 20px;
+    width: 10%;
+    padding: 0 0 0 10%;
 }
 
 .memeControl:hover {
@@ -723,9 +722,9 @@ dialog a:hover figcaption{
         margin: 0 10%;
     }
     dialog figure {
-    display: inline-block;
-    width: 25%;
-}
+        display: inline-block;
+        width: 25%;
+    }
 
     dialog figure img {
         width: 25%;
