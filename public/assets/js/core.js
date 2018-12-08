@@ -7,6 +7,7 @@ var config = {
     storageBucket: "mememaster-9b27a.appspot.com",
     messagingSenderId: "825635617975"
 };
+
 var defaultApp = firebase.initializeApp(config);
 const firestore = firebase.firestore();
 var storage = firebase.storage();
@@ -117,28 +118,33 @@ if(document.body.id === 'signup') {
 }
 
 if(document.body.id === 'login') {
-	function login() {
-	    var email = document.getElementById('email').value;
-	    var password = document.getElementById('password').value;
+    function login() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
 
-	    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-	      // Handle Errors here.
-	      var errorCode = error.code;
-	      var errorMessage = error.message;
-	      // ...
-	    });
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
+        });
 
-	    firebase.auth().onAuthStateChanged(function(user) {
-	      if (user) {
-	        console.log("signed in");
-	        window.location = './library.html'
-	        // ...
-	      } else {
-	        // User is signed out.
-	        // ...
-	      }
-	    });
-	}
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                console.log("signed in");
+                window.location = './library.html'
+                // ...
+            } else {
+                // User is signed out.
+                // ...
+            }
+        });
+    }
 }
 
 if(document.body.id === 'createNew1') {
@@ -530,3 +536,120 @@ function searchMemes() {
 	    });
 	});
 }
+
+if(document.body.id === 'importMeme') {
+	var canvas = new fabric.Canvas('canvas');
+	canvas.selection = false;
+
+	canvas.forEachObject(function(o) {
+	    o.selectable = false;
+	});
+
+	document.getElementById('netUpload').addEventListener('click', function(e) {
+
+		    console.log('asdasd');
+
+		    data = document.getElementById('netImg').value;
+		    fabric.Image.fromURL(data, function (img) {
+		        var oImg = img.set({left: 0, top: 0, angle: 0});
+		        oImg.scaleToHeight(400);
+		        oImg.scaleToWidth(400);
+		        if(oImg.height > canvas.height) {
+
+		            let newHeight = (400*oImg.height)/oImg.width;
+		            canvas.setHeight(newHeight);
+		        }
+		        oImg.lockMovementX = true;
+		        oImg.lockMovementY = true;
+		        oImg.lockScalingX = true;
+		        oImg.lockScalingY = true;
+		        oImg.lockRotation = true;
+		        oImg.selectable = false;
+		        canvas.hoverCursor = 'defaultCursor'
+		        canvas.add(oImg).sendToBack(oImg).renderAll();
+		    });
+		    canvas.renderAll();
+		});
+
+	document.getElementById('file').addEventListener("change", function (e) {
+	    canvas.clear();
+	    var file = e.target.files[0];
+	    var reader = new FileReader();
+
+	    reader.onload = function (f) {
+	        var data = f.target.result;                    
+	        fabric.Image.fromURL(data, function (img) {
+	            var oImg = img.set({left: 0, top: 0, angle: 0});
+	            oImg.scaleToHeight(400);
+	            oImg.scaleToWidth(400);
+	            if(oImg.height > canvas.height) {
+
+	                let newHeight = (400*oImg.height)/oImg.width;
+	                canvas.setHeight(newHeight);
+	            }
+	            oImg.lockMovementX = true;
+	            oImg.lockMovementY = true;
+	            oImg.lockScalingX = true;
+	            oImg.lockScalingY = true;
+	            oImg.lockRotation = true;
+	            oImg.selectable = false;
+	            canvas.hoverCursor = 'defaultCursor'
+	            canvas.add(oImg).sendToBack(oImg).renderAll();
+	        });
+	    };
+	    reader.readAsDataURL(file);
+	    canvas.renderAll();
+
+	});
+
+	function saveOldMeme() {
+	    var blank = document.createElement('canvas');
+	    blank.width = canvas.width;
+	    blank.height = canvas.height;
+
+	    // if canvas is empty
+		if(canvas.toDataURL() == blank.toDataURL()) {
+
+			if(document.getElementById('file').value === "") {
+				alert("Please add a picture.");
+				return;
+			}
+		}
+
+		if(document.getElementById('keywordTag').value === "") {
+			alert("Please add a keyword.");
+			return;
+		}
+
+		let editableCanvas = JSON.stringify(canvas);
+    	let flatImg = canvas.toDataURL('image/png');
+    	var keyword = document.getElementById("keywordTag").value;
+		var name;
+
+
+		db.collection(firebase.auth().currentUser.email).get().then(snap => {
+			name = snap.size.toString();
+	        db.collection(firebase.auth().currentUser.email).doc(name).set({
+	            jsonImage: editableCanvas,
+	            imgURL: flatImg,
+	            index: name,
+                tag: keyword
+	        });
+    	});
+
+   		setTimeout(function() {
+    		window.location = './library.html';
+    	}, 2500);
+	}
+}
+
+if(document.body.id === 'index') {
+	firebase.auth().onAuthStateChanged(function(user) {
+	    if (user) {
+	    	console.log("asad");
+	        window.location = './library.html';
+	        // ...
+	    }
+	});
+}
+

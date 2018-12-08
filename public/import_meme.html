@@ -35,7 +35,7 @@
             </li>
         </ul>
     </header>
-    <body id='createNew1'>
+    <body id='importMeme'>
 
         <nav style="margin-top: 100px;">  
 
@@ -43,14 +43,6 @@
         </nav>
         <div class="lineBreak"></div>
         <button id="goBack" onclick="history.back(-1)">Go Back</button>
-
-        <!--  cant use cuz it uses jquery
-<div class="progressbar-container">
-<ul class="progressbar">
-<li class="active">Upload + Stylize</li>
-<li>Finish</li>
-</ul>
-</div> -->
 
 
         <div class="outer-div">
@@ -68,13 +60,14 @@
                         <input id='netImg' type='text'>
                         <button id='netUpload'>URL</button>
                         <br>
-                        <h3>Step 2: tag your meme with keyword</h3>
+                        <h3>Step 2: Tag your meme with keywords. Separate by comma.</h3>
+                        <input id='keywordTag' type='text'>
                     </div>
 
                     <div class="buttonPanel">
 
                         <button id='reset' onclick="canvasClear()">Reset Canvas</button>
-                        <button id="next" onclick="processImage()">Finish</button>
+                        <button id="next" onclick="saveOldMeme()">Finish</button>
                     </div>
                     <div class="buttonPanel" id="downloadImageID">
                     </div>
