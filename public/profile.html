@@ -40,9 +40,15 @@
             <br/>
             <label for="password">Password: </label>
 
-            <span>Password</span>
+            <span id="password">Password</span>
             <br/>
 
+
+            <div id="reauthenticateForm" style="display:none">
+                <input type="password" placeholder="Re-enter Current Password" id="oldPassword"/>
+                <br/>
+
+            </div>
 
 
 
@@ -50,11 +56,14 @@
                 <input type="password" placeholder="New Password" id="passOne"/>
                 <input type="password" placeholder="Confirm Password" id="passTwo"/>
                 <br/>
+
+                <button type="submit" onclick="checkAndChange()">Update</button>
             </div>
+
 
             <button type="submit" id= "cancelUpdate" style="display: none;" onclick="cancel()">Cancel</button>
 
-            <button type="submit" onclick="checkAndChange()">Update Password</button>
+            <button id="updateButton" type="submit" onclick="promptReauthenticate()">Update Password</button>
         </div>
 
 
@@ -64,25 +73,33 @@
 
 
 </html>
+<script src='./assets/js/core.js'></script>
 
 <script>
 
     function cancel() {
         document.getElementById("changePasswordForm").style.display = "none";
-
         document.getElementById("cancelUpdate").style.display = "none";
-        
+        document.getElementById("updateButton").style.display = "none";
+
         document.getElementById("passOne").value = "";
         document.getElementById("passTwo").value = "";
-        
-    }
 
+    };
+
+    function promptReauthenticate() {
+        document.getElementById("reauthenticateForm").style.display = "";
+        document.getElementById("changePasswordForm").style.display = "";
+        document.getElementById("cancelUpdate").style.display = "";
+        document.getElementById("updateButton").style.display = "none";
+    }
 
     function checkAndChange() {
 
-        document.getElementById("changePasswordForm").style = "";
-
-        document.getElementById("cancelUpdate").style = "";
+        var oldPassword = document.getElementById("oldPassword").value.toString();
+        document.getElementById("changePasswordForm").style.display = "";
+        document.getElementById("cancelUpdate").style.display = "none";
+        document.getElementById("updateButton").style.display = "none";
 
         var passOne = document.getElementById("passOne").value;
         var passTwo = document.getElementById("passTwo").value;
@@ -96,14 +113,42 @@
             document.getElementById("messageText").innerHTML = "please enter and confirm your new password";
 
             document.getElementById("profile-area").appendChild(message);
-        }
-
-        if(passOne.toString() === passTwo.toString()){
+        } else if(passOne.toString() === passTwo.toString()){
             document.getElementById("profile-area").appendChild(message);
-        }
 
-        else
-        {
+            var newPassword = passOne.toString();
+            console.log("the new password will be " + newPassword);
+
+            // UPDATE PASSWORD
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    var user = firebase.auth().currentUser;
+
+                    var credential = firebase.auth.EmailAuthProvider.credential (
+                        user.email,
+                        oldPassword // NEED TO PROMPT USER TO RE-AUTHENTICATE
+                    );
+                    // Prompt the user to re-provide their sign-in credentials
+                    user.reauthenticateAndRetrieveDataWithCredential(credential).then(function() {
+                        // User re-authenticated.
+
+                        user.updatePassword(newPassword).then(function() {
+                            // Update successful.
+                            document.getElementById("reauthenticateForm").style.display = "none";
+                            document.getElementById("changePasswordForm").style.display = "none";
+                            document.getElementById("updateButton").style.display = "none";
+                            document.getElementById("messageText").innerHTML = "Password Updated!";
+
+                            console.log("oki password updated to:" + passOne);
+                        }).catch(function(error) {
+                            // An error happened.
+                        }
+                                )}).catch(function(error) {
+                        // An error happened.
+                    });
+
+                } });
+        } else {
             if(passOne.toString() !== passTwo.toString()){
                 document.getElementById("messageText").innerHTML = "DONT match!";
                 document.getElementById("profile-area").appendChild(message);
@@ -114,7 +159,6 @@
 </script>
 
 
-<script src='./assets/js/core.js'></script>
 
 <script>
     window.onload = function() {
@@ -123,6 +167,9 @@
             if (user) {
                 console.log(user);
                 document.getElementById('username').innerHTML = user.email;
-            } })};
+            } })
+
+
+    };
 
 </script>
