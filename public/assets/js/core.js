@@ -446,17 +446,15 @@ if(document.body.id === 'createNew1') {
                 tag: keyword
 	        });
 
-	        storageRef.putString(flatImg, 'data_url').then(function(snapshot) {
-	          console.log('Uploaded a data_url string!');
-	        });
+	        firebase.storage().ref().child(firebase.auth().currentUser.email + '/' + name).putString(flatImg, 'data_url');
 	    });
 
 	    localStorage.clear();
         
-        /*
+        
         setTimeout(function() {
 	    			window.location = './library.html';
-	    		}, 4000);*/
+	    		}, 4000);
 	}   
 }
 
@@ -481,18 +479,14 @@ function deletePicture(name) {
 	window.location = './library.html';
 }
 
-function convertURIToImageData(URI) {
-  return new Promise(function(resolve, reject) {
-    if (URI == null) return reject();
-    var canvas = document.createElement('canvas'),
-        context = canvas.getContext('2d'),
-        image = new Image();
-    image.addEventListener('load', function() {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      context.drawImage(image, 0, 0, canvas.width, canvas.height);
-      resolve(context.getImageData(0, 0, canvas.width, canvas.height));
-    }, false);
-    image.src = URI;
-  });
+function sharePicture(name) {
+	firebase.storage().ref().child(firebase.auth().currentUser.email + '/' + name.toString()).getDownloadURL().then(function(url) {
+		
+		document.getElementById('imageURL').href = url;
+		document.getElementById('imageURL').target = '_blank';
+		document.getElementById('shareBox').style.display = '';
+
+        }).catch(function(error) {
+          // Handle any errors here
+    });
 }

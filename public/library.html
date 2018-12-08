@@ -54,6 +54,9 @@
         <div class="lineBreak"></div>
 
         <div class="outer-div">
+            <dialog open id='shareBox' style="display: none;">
+                <a id='imageURL'>Copy this link!</a>
+            </dialog>
 
 
 
@@ -71,7 +74,7 @@
         <form class="memeControlPanel">
             <img class="memeControl" id="deleteButton" onclick="deletePicture({{index}})" src="./assets/img/delete.png" alt="delte">
             <img class="memeControl" id="editButton" onclick='editPicture({{index}})' src="./assets/img/edit.png" alt="edit">
-            <img class="memeControl" id="shareButton" src="./assets/img/share.png" alt="share">
+            <img class="memeControl" id="shareButton" onclick='sharePicture({{index}})' src="./assets/img/share.png" alt="share">
                 </form>
                 </div>
                 </div>
