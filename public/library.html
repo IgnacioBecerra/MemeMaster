@@ -42,12 +42,12 @@
             <div class="spacer"></div>
             <li>
                 <form class="searchForm">
-                    <input id='searchbar' type="text" placeholder="Search">
+                    <input id='searchbar' type="text" placeholder="Search"/>
+                    <a onclick="searchMemes()">Search</a>
                     <!-- <button type="submit">Search</button> -->
                 </form>
             </li>
             <div class="spacer2" id="spacer2" style="display: none;"></div>
-            <li><a onclick="searchMemes()">Search</a></li>
             <li class="import-btn"><a href="./import_meme.html" id="import">Import</a></li>
             <li class="create-btn"><a href="./create_new.html" id="createNew">Create New</a></li>
         </nav>
@@ -56,10 +56,32 @@
 
         <div class="outer-div">
             <dialog open id='shareBox' style="display: none;">
-                <a id='imageURL'>Copy this link!</a>
-                <a id='emailShare'>E-mail</a>
-                <a id="fb-share" target="_blank">Share on Facebook</a>
-                <a id='twitter-share' target="_blank">Share on Twitter</a>
+
+                <a id='imageURL'>
+                    <figure>
+                        <img src="./assets/img/copy.png" atl="copy this meme">
+                        <figcaption>copy this link</figcaption>
+                    </figure></a>
+
+                <a id='emailShare'>
+                    <figure>
+                        <img src="./assets/img/email.png" alt="share by email">
+                        <figcaption>share by Email</figcaption>
+                    </figure></a>
+
+                <a id="fb-share" target="_blank">
+                    <figure>
+                        <img src="./assets/img/facebook.png" alt="share on facebook">
+                        <figcaption>Share on Facebook</figcaption>
+                    </figure></a>
+
+
+                <a id='twitter-share' target="_blank">
+                    <figure>
+                        <img src="./assets/img/twitter.png" alt="share on twitter">
+                        <figcaption>Share on Twitter</figcaption>
+                    </figure></a>
+
                 <button onclick='closeShare()'>Close</button>
             </dialog>
 

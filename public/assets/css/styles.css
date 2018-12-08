@@ -346,13 +346,29 @@ nav .spacer {
     flex-grow: 0.9;
 }
 nav .searchForm {
+    display: flex;
+    flex-direction:row;
     padding: 0 20px;
 }
 
 nav input {
-    height: 45px;
+    font-size: 1.2em;
+    height: 38px;
     width: 20em;
+        flex-grow:1.5;
+}
 
+.searchForm a{
+     width: 7em;
+    background-color: #E19C9C;
+    border: 1px solid #E19C9C;
+    color: WHITE;
+    text-align: center;
+}
+
+.searchForm a:hover{
+    background-color: #DA7F7F;
+    color: WHITE;
 }
 
 #import:hover {
@@ -674,3 +690,51 @@ nav input {
     border-radius: 4px;
     color: white;
 }
+
+dialog {
+    border: 2px solid #DCDCDC;
+    box-shadow: 4px 4px #DCDCDC;
+    margin: 0 15%;
+}
+
+dialog figure {
+    display: inline-block;
+    width: 10%;
+}
+
+dialog figcaption {
+    font-size: 1.2em;
+}
+
+dialog figure img {
+    width: 80%;
+}
+
+dialog a:hover img{
+    opacity: 0.3;
+}
+
+dialog a:hover figcaption{
+    opacity: 0.3;
+}
+
+@media (max-width: 68em) {
+    dialog {
+        margin: 0 10%;
+    }
+    dialog figure {
+    display: inline-block;
+    width: 25%;
+}
+
+    dialog figure img {
+        width: 25%;
+    }
+}
+
+@media (max-width: 48em) {
+    dialog figure img {
+        width: 50%;
+    }
+}
+
