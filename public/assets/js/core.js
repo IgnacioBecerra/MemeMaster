@@ -15,6 +15,8 @@ const settings = {/* your settings... */ timestampsInSnapshots: true};
 firestore.settings(settings);
 var db = firebase.firestore();
 
+
+
 function logOut() {
 	firebase.auth().signOut().then(function() {
 	  console.log("logged out");
@@ -485,8 +487,17 @@ function sharePicture(name) {
 		document.getElementById('imageURL').href = url;
 		document.getElementById('imageURL').target = '_blank';
 		document.getElementById('shareBox').style.display = '';
+		
+		document.getElementById('emailShare').href = 'mailto:' + url;
+
+		document.getElementById('fb-share').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+		document.getElementById('twitter-share').href = 'https://twitter.com/share?url=' + encodeURIComponent(url);
 
         }).catch(function(error) {
           // Handle any errors here
     });
+}
+
+function closeShare() {
+	document.getElementById('shareBox').style.display = 'none';
 }

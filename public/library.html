@@ -12,6 +12,7 @@
 
         <!-- Handlebars code -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
+
     </head>
 
     <header class="header">
@@ -34,7 +35,6 @@
         </div>
     </header>
     <body id='library'>
-
         <nav style="margin-top: 100px;">  
             <li class="nav-header"><a href="">Your Library</a></li>
 
@@ -56,6 +56,10 @@
         <div class="outer-div">
             <dialog open id='shareBox' style="display: none;">
                 <a id='imageURL'>Copy this link!</a>
+                <a id='emailShare'>E-mail</a>
+                <a id="fb-share" target="_blank">Share on Facebook</a>
+                <a id='twitter-share' target="_blank">Share on Twitter</a>
+                <button onclick='closeShare()'>Close</button>
             </dialog>
 
 
