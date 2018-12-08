@@ -334,7 +334,7 @@ nav a {
     color: black;
 }
 
-nav .library {
+nav .nav-header {
     display: block;
     float: left;
     font-size: 2em;
@@ -647,4 +647,30 @@ nav input {
 
 .memeControl:hover {
     opacity: 0.4;
+}
+
+#profile-area {
+    border: 2px solid #DCDCDC;
+    margin: 120px 15%;
+    padding: 0 10%;
+    background-color: white; 
+    font-size: 1.8em;
+    font-weight: 200;
+    color: #555555; 
+}
+
+#profile-area input {
+    width: 50%;
+    margin-bottom: 10px;
+    font-size: 0.8em;
+}
+
+
+#profile-area button {
+    width: 12em;
+    font-size: 0.8em;
+    background-color: #E19C9C;
+    border: 2px solid #E19C9C;
+    border-radius: 4px;
+    color: white;
 }

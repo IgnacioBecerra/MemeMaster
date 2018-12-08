@@ -7,7 +7,13 @@
         <base href = "./"> 
         <link rel="stylesheet" href="./assets/css/styles.css">
         <link>
+        <!-- Firebase code -->
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+
+        <!-- Handlebars code -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
     </head>
+
     <header class="header">
         <a href="./index.html" class="logo">Meme Generator</a>
         <input class="menu-btn" type="checkbox" id="menu-btn" />
@@ -17,6 +23,106 @@
             <li><a href="./signup.html">Sign Up</a></li>
         </ul>
     </header>
-    <body>
+
+    <body id='profile'>
+        <nav style="margin-top: 100px;">  
+            <span class="nav-header">Your Profile</span>
+        </nav>
+
+        <div class="lineBreak"></div>
+        <div id="profile-area">
+
+
+            <label for="username">Username: </label>
+
+            <span id="username">Username</span>
+
+            <br/>
+            <label for="password">Password: </label>
+
+            <span>Password</span>
+            <br/>
+
+
+
+
+            <div id="changePasswordForm" style="display:none">
+                <input type="password" placeholder="New Password" id="passOne"/>
+                <input type="password" placeholder="Confirm Password" id="passTwo"/>
+                <br/>
+            </div>
+
+            <button type="submit" id= "cancelUpdate" style="display: none;" onclick="cancel()">Cancel</button>
+
+            <button type="submit" onclick="checkAndChange()">Update Password</button>
+        </div>
+
+
     </body>
+
+
+
+
 </html>
+
+<script>
+
+    function cancel() {
+        document.getElementById("changePasswordForm").style.display = "none";
+
+        document.getElementById("cancelUpdate").style.display = "none";
+        
+        document.getElementById("passOne").value = "";
+        document.getElementById("passTwo").value = "";
+        
+    }
+
+
+    function checkAndChange() {
+
+        document.getElementById("changePasswordForm").style = "";
+
+        document.getElementById("cancelUpdate").style = "";
+
+        var passOne = document.getElementById("passOne").value;
+        var passTwo = document.getElementById("passTwo").value;
+
+        var message = document.createElement('p');
+        message.id = 'messageText';
+        document.getElementById("profile-area").appendChild(message);
+        document.getElementById("messageText").innerHTML = "match!";
+
+        if(passOne.toString() ==="" && passTwo.toString() === ""){
+            document.getElementById("messageText").innerHTML = "please enter and confirm your new password";
+
+            document.getElementById("profile-area").appendChild(message);
+        }
+
+        if(passOne.toString() === passTwo.toString()){
+            document.getElementById("profile-area").appendChild(message);
+        }
+
+        else
+        {
+            if(passOne.toString() !== passTwo.toString()){
+                document.getElementById("messageText").innerHTML = "DONT match!";
+                document.getElementById("profile-area").appendChild(message);
+            } 
+        }   
+    };
+
+</script>
+
+
+<script src='./assets/js/core.js'></script>
+
+<script>
+    window.onload = function() {
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                console.log(user);
+                document.getElementById('username').innerHTML = user.email;
+            } })};
+
+</script>
