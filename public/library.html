@@ -36,17 +36,18 @@
     </header>
     <body id='library'>
         <nav style="margin-top: 100px;">  
-            <li class="nav-header"><a href="">Your Library</a></li>
+            <li class="nav-header"><a href="./library.html">Your Library</a></li>
 
 
             <div class="spacer"></div>
             <li>
                 <form class="searchForm">
-                    <input type="text" placeholder="Search">
+                    <input id='searchbar' type="text" placeholder="Search">
                     <!-- <button type="submit">Search</button> -->
                 </form>
             </li>
             <div class="spacer2" id="spacer2" style="display: none;"></div>
+            <li><a onclick="searchMemes()">Search</a></li>
             <li class="import-btn"><a href="./import_meme.html" id="import">Import</a></li>
             <li class="create-btn"><a href="./create_new.html" id="createNew">Create New</a></li>
         </nav>

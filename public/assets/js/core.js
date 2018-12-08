@@ -407,7 +407,7 @@ if(document.body.id === 'createNew1') {
         
        		setTimeout(function() {
 	    		window.location = './library.html';
-	    	}, 4000);
+	    	}, 2000);
 	    	return;
 		}
 
@@ -456,7 +456,7 @@ if(document.body.id === 'createNew1') {
         
         setTimeout(function() {
 	    			window.location = './library.html';
-	    		}, 4000);
+	    		}, 2000);
 	}   
 }
 
@@ -478,7 +478,9 @@ function deletePicture(name) {
 
 	db.collection(firebase.auth().currentUser.email).doc(name.toString()).delete();
 	document.getElementById('memeBox'+ name.toString()).outerHTML = '';
-	window.location = './library.html';
+	setTimeout(function() {
+	    			window.location = './library.html';
+	    		}, 2000);
 }
 
 function sharePicture(name) {
@@ -500,4 +502,31 @@ function sharePicture(name) {
 
 function closeShare() {
 	document.getElementById('shareBox').style.display = 'none';
+}
+
+function searchMemes() {
+	var searchTerms = document.getElementById('searchbar').value;
+	var source = document.getElementById("results-template").innerHTML;
+	var template = Handlebars.compile(source);
+
+	var parentDiv = document.getElementsByClassName('meme-grid')[0];
+
+	db.collection(firebase.auth().currentUser.email).get().then(function(querySnapshot) {
+	    
+		parentDiv.innerHTML = '';
+	    querySnapshot.forEach(function(doc) {
+
+
+
+	    	if(doc.data().tag.split(",").includes(searchTerms)) {
+
+	    		var curHtml = template(doc.data());
+	    		
+	    		let box = document.createElement('div');
+	    		box.innerHTML = curHtml;
+	    		parentDiv.append(box);
+	    	}
+	       
+	    });
+	});
 }
